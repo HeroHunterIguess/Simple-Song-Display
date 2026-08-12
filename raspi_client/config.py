@@ -43,3 +43,5 @@ secondary_font_size = 11
 truncation_length = 10 # Length of a line of text before its shortened
 
 no_media_background_image_link = "https://unblast.com/wp-content/uploads/2021/01/Space-Background-Images.jpg"
+
+output = False

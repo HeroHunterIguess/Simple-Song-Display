@@ -39,4 +39,4 @@ def no_media(screen):
         screen.fill(c.background_color)
 
     info_surface = main_font.render("No Media.", True, c.main_text_color)
-    screen.blit(info_surface, (0, 0))
+    screen.blit(info_surface, (c.horizontal_padding, 0))

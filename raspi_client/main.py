@@ -3,7 +3,8 @@
 # Setup correct video driver for when there is no DE installed
 import os, subprocess
 if "herohunter" not in str(subprocess.run("whoami", shell=True, capture_output=True, text=True)).strip():
-    print("Switching to KMSDRM.")
+    if c.output:
+        print("Switching to KMSDRM.")
     os.environ["SDL_VIDEODRIVER"] = "kmsdrm"
 
 # Setup and initialization
@@ -39,7 +40,8 @@ def main():
         running = True
         while running:
             data = client_socket.recv(1024).decode("utf-8")
-            print("recieved data:\n" + str(data))
+            if c.output:
+                print("recieved data:\n" + str(data))
 
             title, artist, artURL, length, is_playing, album, position = utils.parse_info(data)
             
@@ -69,7 +71,8 @@ def main():
 
             pygame.display.flip()
     except KeyboardInterrupt:
-        print("client closing")
+        if c.output:
+            print("client closing")
     
     client_socket.close()
 
