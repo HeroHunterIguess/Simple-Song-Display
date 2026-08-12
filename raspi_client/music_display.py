@@ -1,0 +1,94 @@
+# Simple Song Display
+
+# Setup correct video driver for when there is no DE installed
+import os, subprocess
+if "herohunter" not in str(subprocess.run("whoami", shell=True, capture_output=True, text=True)).strip():
+    print("Switching to KMSDRM.")
+    os.environ["SDL_VIDEODRIVER"] = "kmsdrm"
+
+# Setup and initialization
+import pygame, utils, time, socket, requests, io, config as c
+
+pygame.display.init()
+pygame.font.init()
+
+font = pygame.font.SysFont(c.font, c.font_size)
+
+screen = pygame.display.set_mode(c.display_size)
+
+pygame.mouse.set_visible(False)
+
+
+def main():
+    # Establish server connection
+    host = "192.168.1.126"
+    port = 7463
+
+    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    # Begin loop
+    position = 3
+    old_title = ""
+    old_url = ""
+
+    try:
+        # Connect to host
+        client_socket.connect((host, port))
+
+        running = True
+        while running:
+            data = client_socket.recv(1024).decode("utf-8")
+            print("recieved data:" + str(data))
+
+            title, artist, artURL, length, is_playing, album = utils.parse_info(data)
+
+            if old_title != title:
+                position = 3
+            
+            if old_url != artURL and artURL != "":
+                response = requests.get(artURL)
+                album_cover_image = pygame.image.load(io.BytesIO(response.content))
+                album_cover_image = pygame.transform.smoothscale(album_cover_image, c.album_cover_size)
+
+            # Make window closeable
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    running = False
+
+            # Draw on screen
+            screen.fill(c.background_color)
+
+            if c.mode == "Full":
+                # General song information
+                title_surface = font.render(title, True, c.text_color)
+                screen.blit(title_surface, (c.album_cover_size[0] + c.horizontal_padding, 0))
+
+                artist_surface = font.render(artist, True, c.text_color)
+                screen.blit(artist_surface, (c.album_cover_size[0] + c.horizontal_padding, c.font_size + c.line_padding))
+
+                album_surface = font.render(album, True, c.text_color)
+                screen.blit(album_surface, (c.album_cover_size[0] + c.horizontal_padding, (c.font_size + c.line_padding) * 2))
+
+                # Album cover
+                screen.blit(album_cover_image, (0, 0))
+
+                # Position in song
+                position_surface = font.render(str(position) + " / " + str(length), True, c.text_color)
+                screen.blit(position_surface, (0, (c.font_size + c.line_padding) * 3))
+
+            time.sleep(1)
+
+            if is_playing == "True":
+                position += 1
+            
+            old_title = title
+            old_url = artURL
+
+            pygame.display.flip()
+    except KeyboardInterrupt:
+        print("client closing")
+    
+    client_socket.close()
+
+main()
+pygame.quit()
