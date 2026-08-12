@@ -1,13 +1,16 @@
 ### Render song display ###
 
-import pygame, config as c 
+import pygame, utils, config as c 
 pygame.font.init()
 
 main_font = pygame.font.SysFont(c.main_font, c.main_font_size, bold=c.main_font_bold)
 secondary_font = pygame.font.SysFont(c.secondary_font, c.secondary_font_size, bold=c.secondary_font_bold)
 
-
 def render_full(screen, title, artist, album, album_cover_image, position, length):
+
+    position = utils.format_time(position)
+    length = utils.format_time(length)
+
     title_surface = main_font.render(title, True, c.main_text_color)
     screen.blit(title_surface, (c.album_cover_size[0] + c.horizontal_padding, 0))
 

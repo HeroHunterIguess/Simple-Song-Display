@@ -22,6 +22,7 @@ def main():
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     host = "0.0.0.0"
     port = 7463
+
     try:
         server_socket.bind((host, port))
     except OSError as err:

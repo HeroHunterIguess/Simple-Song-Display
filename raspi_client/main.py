@@ -40,7 +40,7 @@ def main():
         running = True
         while running:
             data = client_socket.recv(1024).decode("utf-8")
-            print("recieved data:" + str(data))
+            print("recieved data:\n" + str(data))
 
             title, artist, artURL, length, is_playing, album = utils.parse_info(data)
 
