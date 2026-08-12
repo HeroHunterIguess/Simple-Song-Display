@@ -11,7 +11,7 @@ background_color = (30,30,30)
 
 display_size = (400,300)
 
-line_padding = 5
+line_padding = 7
 horizontal_padding = 4
 
 mode = "Full" # Currently 'Full' is the only mode
@@ -39,6 +39,7 @@ secondary_font_size = 11
 ### Misc                  ###
 #############################
 
-data_file_location = "/home/herohunter/misc/song_info.txt"
-
+# truncation length unused:
 truncation_length = 10 # Length of a line of text before its shortened
+
+no_media_background_image_link = "https://unblast.com/wp-content/uploads/2021/01/Space-Background-Images.jpg"

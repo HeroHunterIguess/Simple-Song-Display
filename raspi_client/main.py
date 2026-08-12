@@ -25,9 +25,8 @@ def main():
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     # Begin loop
-    position = 1
-    old_title = ""
     old_url = ""
+    album_cover_image = ""
 
     try:
         # Connect to host
@@ -42,34 +41,30 @@ def main():
             data = client_socket.recv(1024).decode("utf-8")
             print("recieved data:\n" + str(data))
 
-            title, artist, artURL, length, is_playing, album = utils.parse_info(data)
-
-            if old_title != title:
-                position = 1
+            title, artist, artURL, length, is_playing, album, position = utils.parse_info(data)
             
-            if old_url != artURL and artURL != "":
+            if old_url != artURL and artURL != "" and title != "null":
                 response = requests.get(artURL)
                 album_cover_image = pygame.image.load(io.BytesIO(response.content))
                 album_cover_image = pygame.transform.smoothscale(album_cover_image, c.album_cover_size)
 
-            # Make window closeable
+            # Make window closeable w/ space
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
-                    running = False
+                    if event.key == pygame.K_SPACE:
+                        running = False
 
             # Draw on screen
             screen.fill(c.background_color)
 
-            if c.mode == "Full":
+            if title == "null" or album_cover_image == "" or title == "":
+                rendering.no_media(screen)
+            elif c.mode == "Full":
                 # General song information
                 rendering.render_full(screen, title, artist, album, album_cover_image, position, length)
 
-            time.sleep(0.5)
-
-            if is_playing == "True":
-                position += 0.5
+            time.sleep(0.3)
             
-            old_title = title
             old_url = artURL
 
             pygame.display.flip()
