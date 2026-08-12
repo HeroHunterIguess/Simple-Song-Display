@@ -25,4 +25,4 @@ def render_full(screen, title, artist, album, album_cover_image, position, lengt
 
     # Position in song
     position_surface = secondary_font.render(str(position) + " / " + str(length), True, c.secondary_text_color)
-    screen.blit(position_surface, (0, (c.secondary_font_size + c.line_padding) * 3 + (c.line_padding * 2)))
+    screen.blit(position_surface, (c.album_cover_size[0] + c.horizontal_padding, (c.secondary_font_size + c.line_padding) * 3 + (c.line_padding * 2)))

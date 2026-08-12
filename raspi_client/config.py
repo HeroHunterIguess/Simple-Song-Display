@@ -31,8 +31,8 @@ main_font_bold = True
 secondary_font = "Monospace"
 secondary_font_bold = False
 
-main_font_size = 20
-secondary_font_size = 16
+main_font_size = 14
+secondary_font_size = 11
 
 
 #############################

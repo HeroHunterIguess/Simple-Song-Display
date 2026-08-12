@@ -64,11 +64,12 @@ def main():
                     print("BROKEN PIPE: CLIENT LIKELY DISCONNECTED: " + str(err))
                     break
                 
-                time.sleep(1)
+                time.sleep(0.5)
         
         # Stop server
         except KeyboardInterrupt:
-            print("Stopping server...")
+            print("\nStopping server...")
             break
 
 main()
+ 

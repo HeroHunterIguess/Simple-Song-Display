@@ -25,7 +25,7 @@ def main():
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     # Begin loop
-    position = 2
+    position = 1
     old_title = ""
     old_url = ""
 
@@ -45,7 +45,7 @@ def main():
             title, artist, artURL, length, is_playing, album = utils.parse_info(data)
 
             if old_title != title:
-                position = 2
+                position = 1
             
             if old_url != artURL and artURL != "":
                 response = requests.get(artURL)
@@ -64,10 +64,10 @@ def main():
                 # General song information
                 rendering.render_full(screen, title, artist, album, album_cover_image, position, length)
 
-            time.sleep(1)
+            time.sleep(0.5)
 
             if is_playing == "True":
-                position += 1
+                position += 0.5
             
             old_title = title
             old_url = artURL
