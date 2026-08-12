@@ -22,7 +22,13 @@ def main():
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     host = "0.0.0.0"
     port = 7463
-    server_socket.bind((host, port))
+    try:
+        server_socket.bind((host, port))
+    except OSError as err:
+        # Set backup in case port is in use
+        print("Port likely in use: " + str(err))
+        return
+    
     server_socket.listen(5)
 
     print("server started on port: " + str(port))

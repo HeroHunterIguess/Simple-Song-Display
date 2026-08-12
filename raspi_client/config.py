@@ -9,19 +9,30 @@
 
 background_color = (30,30,30)
 
-display_size = (340,100)
+display_size = (400,300)
 
-main_text_color = (255,255,255)
-secondary_text_color = (200,200,200)
-
-font = "Monospace"
-font_size = 20
 line_padding = 5
-horizontal_padding = 8
+horizontal_padding = 4
 
 mode = "Full" # Currently 'Full' is the only mode
 
 album_cover_size = (72,72)
+
+
+#############################
+### Text                  ###
+#############################
+
+main_text_color = (255,255,255)
+secondary_text_color = (180,180,180)
+
+main_font = "Monospace"
+main_font_bold = True
+secondary_font = "Monospace"
+secondary_font_bold = False
+
+main_font_size = 20
+secondary_font_size = 16
 
 
 #############################

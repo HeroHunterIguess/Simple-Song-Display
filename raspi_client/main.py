@@ -12,8 +12,6 @@ import pygame, utils, time, socket, requests, io, rendering, config as c
 pygame.display.init()
 pygame.font.init()
 
-font = pygame.font.SysFont(c.font, c.font_size)
-
 screen = pygame.display.set_mode(c.display_size)
 
 pygame.mouse.set_visible(False)
@@ -27,13 +25,17 @@ def main():
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     # Begin loop
-    position = 3
+    position = 2
     old_title = ""
     old_url = ""
 
     try:
         # Connect to host
-        client_socket.connect((host, port))
+        try: 
+            client_socket.connect((host, port))
+        except ConnectionRefusedError as err:
+            print("Server not found.", err)
+            return
 
         running = True
         while running:
@@ -43,7 +45,7 @@ def main():
             title, artist, artURL, length, is_playing, album = utils.parse_info(data)
 
             if old_title != title:
-                position = 3
+                position = 2
             
             if old_url != artURL and artURL != "":
                 response = requests.get(artURL)
@@ -60,7 +62,7 @@ def main():
 
             if c.mode == "Full":
                 # General song information
-                rendering.render_full(screen, font, title, artist, album, album_cover_image, position, length)
+                rendering.render_full(screen, title, artist, album, album_cover_image, position, length)
 
             time.sleep(1)
 
