@@ -10,6 +10,7 @@ def parse_info(data):
     is_playing = ""
     album = ""
 
+    # Split data into individual values
     buffer = io.StringIO(data)
     title = buffer.readline().strip()
     artist = buffer.readline().strip()

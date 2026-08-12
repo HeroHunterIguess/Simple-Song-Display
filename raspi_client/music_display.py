@@ -7,7 +7,7 @@ if "herohunter" not in str(subprocess.run("whoami", shell=True, capture_output=T
     os.environ["SDL_VIDEODRIVER"] = "kmsdrm"
 
 # Setup and initialization
-import pygame, utils, time, socket, requests, io, config as c
+import pygame, utils, time, socket, requests, io, rendering, config as c
 
 pygame.display.init()
 pygame.font.init()
@@ -60,21 +60,7 @@ def main():
 
             if c.mode == "Full":
                 # General song information
-                title_surface = font.render(title, True, c.text_color)
-                screen.blit(title_surface, (c.album_cover_size[0] + c.horizontal_padding, 0))
-
-                artist_surface = font.render(artist, True, c.text_color)
-                screen.blit(artist_surface, (c.album_cover_size[0] + c.horizontal_padding, c.font_size + c.line_padding))
-
-                album_surface = font.render(album, True, c.text_color)
-                screen.blit(album_surface, (c.album_cover_size[0] + c.horizontal_padding, (c.font_size + c.line_padding) * 2))
-
-                # Album cover
-                screen.blit(album_cover_image, (0, 0))
-
-                # Position in song
-                position_surface = font.render(str(position) + " / " + str(length), True, c.text_color)
-                screen.blit(position_surface, (0, (c.font_size + c.line_padding) * 3))
+                rendering.render_full(screen, font, title, artist, album, album_cover_image, position, length)
 
             time.sleep(1)
 

@@ -11,7 +11,9 @@ background_color = (30,30,30)
 
 display_size = (340,100)
 
-text_color = (255,255,255)
+main_text_color = (255,255,255)
+secondary_text_color = (200,200,200)
+
 font = "Monospace"
 font_size = 20
 line_padding = 5

@@ -1,9 +1,10 @@
+### Simple Song Server ###
 ### Get currently playing song info and host it as server ###
 
-import paramiko, subprocess, time, socket, utils
+import subprocess, time, socket, utils
 
-# Write current information
-def write_current_info(is_playing):
+# Setup information to be sent
+def setup_current_info(is_playing):
     title, artist, artURL, length, album = utils.get_current_playing()
 
     final_info = title+"\n"
@@ -15,9 +16,9 @@ def write_current_info(is_playing):
 
     return final_info
 
+# Server
 def main():
-
-    # Setup server info
+    # Setup server
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     host = "0.0.0.0"
     port = 7463
@@ -26,8 +27,10 @@ def main():
 
     print("server started on port: " + str(port))
 
+    # Info sending loop
     while True:
         try:
+            # Accept client connecting
             client_socket, address = server_socket.accept()
             print("connected to by address: " + str(address))
 
@@ -41,12 +44,22 @@ def main():
                 else: 
                     is_playing = False
 
-                # Write info to raspi
-                info = write_current_info(is_playing)
+                # Send info to client
+                info = setup_current_info(is_playing)
 
-                client_socket.send(info.encode("utf-8"))
+                try: 
+                    client_socket.send(info.encode("utf-8"))
+                # End loop if client disconnects
+                except ConnectionResetError as err:
+                    print("CLIENT DISCONNECTED: " + str(err))
+                    break
+                except BrokenPipeError as err:
+                    print("BROKEN PIPE: CLIENT LIKELY DISCONNECTED: " + str(err))
+                    break
                 
                 time.sleep(1)
+        
+        # Stop server
         except KeyboardInterrupt:
             print("Stopping server...")
             break
