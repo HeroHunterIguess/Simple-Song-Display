@@ -82,7 +82,20 @@ def render_centered(screen, c_s, old_url): # c_s is current_song
     artist_surface = secondary_font.render(c_s.artist, True, c.secondary_text_color)
     screen.blit(artist_surface, (
         c.display_size[0] / 2 - (secondary_font.size(" ")[0] * len(c_s.artist) / 2), 
-        c.display_size[1] / 2 + 40 + c.main_font_size + c.line_padding)
+        c.display_size[1] / 2 + 50 + c.main_font_size + c.line_padding)
+    )
+
+    album_surface = secondary_font.render(c_s.album, True, c.secondary_text_color)
+    screen.blit(album_surface, (
+        c.display_size[0] / 2 - (secondary_font.size(" ")[0] * len(c_s.album) / 2), 
+        c.display_size[1] / 2 + 50 + c.main_font_size * 2 + c.line_padding)
+    )
+
+    # Position in song
+    position_surface = secondary_font.render(str(c_s.position) + " / " + str(c_s.length), True, c.secondary_text_color)
+    screen.blit(position_surface, (
+        c.display_size[0] / 2 - (secondary_font.size(" ")[0] * 11 / 2), 
+        c.display_size[1] / 2 + 70 + c.main_font_size * 3 + c.line_padding / 2)
     )
 
 # Empty screen if no media is playing

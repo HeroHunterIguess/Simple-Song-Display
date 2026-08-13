@@ -26,9 +26,9 @@ album_cover_size = (180,180)
 main_text_color = (255,255,255)
 secondary_text_color = (180,180,180)
 
-main_font = "Monospace"
+main_font = "Source Code Pro"
 main_font_bold = True
-secondary_font = "Monospace"
+secondary_font = "Source Code Pro"
 secondary_font_bold = False
 
 main_font_size = 20
