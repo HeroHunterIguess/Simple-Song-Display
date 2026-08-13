@@ -15,6 +15,7 @@ line_padding = 7
 padding_top = 6
 horizontal_padding = 4
 
+# Config will likely look bad on a different mode
 mode = "Centered" # Options are 'Standard' and 'Centered'
 
 album_cover_size = (180,180)
@@ -29,16 +30,16 @@ secondary_text_color = (180,180,180)
 
 main_font = "Gotham Medium"
 main_font_bold = False
-secondary_font = "Gotham"
+secondary_font = "Gotham Light"
 secondary_font_bold = False
 
 main_font_size = 34
 secondary_font_size = 25
 
 # Text spacing (this is really unclear and idc)
-spacing_one = 40
-spacing_two = 38
-spacing_three = 32
+spacing_one = 38
+spacing_two = 44
+spacing_three = 35
 
 #############################
 ### Misc                  ###
