@@ -1,29 +1,32 @@
 ### UTIL FUNCTIONS ###
 
-import io
+import io, song_data
 
 def parse_info(data):
-    title = ""
-    artist = ""
-    artURL = ""
-    length = ""
-    is_playing = ""
-    album = ""
+    current_song = song_data.song(
+        title = "",
+        artist = "",
+        album = "",
+        album_cover_image = "",
+        position = "",
+        length = "",
+        is_playing = False
+    )
 
     if data == "":
         return "null", "null", "https://null.com", 0, False, "null", 0
 
     # Split data into individual values
     buffer = io.StringIO(data)
-    title = buffer.readline().strip()
-    artist = buffer.readline().strip()
-    artURL = buffer.readline().strip()
-    length = buffer.readline().strip()
-    is_playing = buffer.readline().strip()
-    album = buffer.readline().strip()
-    position = buffer.readline().strip()
+    current_song.title = buffer.readline().strip()
+    current_song.artist = buffer.readline().strip()
+    current_song.album_cover_image = buffer.readline().strip()
+    current_song.length = buffer.readline().strip()
+    current_song.is_playing = buffer.readline().strip()
+    current_song.album = buffer.readline().strip()
+    current_song.position = buffer.readline().strip()
     
-    return title, artist, artURL, length, is_playing, album, position
+    return current_song
 
 def format_time(seconds):
     if seconds == "":

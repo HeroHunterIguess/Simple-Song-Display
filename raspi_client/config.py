@@ -9,12 +9,12 @@
 
 background_color = (30,30,30)
 
-display_size = (400,300)
+display_size = (480,320)
 
 line_padding = 7
 horizontal_padding = 4
 
-mode = "Full" # Currently 'Full' is the only mode
+mode = "Standard" # Currently 'Standard' is the only mode
 
 album_cover_size = (72,72)
 

@@ -8,7 +8,7 @@ if "herohunter" not in str(subprocess.run("whoami", shell=True, capture_output=T
     os.environ["SDL_VIDEODRIVER"] = "kmsdrm"
 
 # Setup and initialization
-import pygame, utils, time, socket, requests, io, rendering, config as c
+import pygame, utils, time, socket, requests, io, rendering, song_data, config as c
 
 pygame.display.init()
 pygame.font.init()
@@ -17,6 +17,15 @@ screen = pygame.display.set_mode(c.display_size)
 
 pygame.mouse.set_visible(False)
 
+current_song = song_data.song(
+    title = "",
+    artist = "",
+    album = "",
+    album_cover_image = "",
+    position = "",
+    length = "",
+    is_playing = False
+)
 
 def main():
     # Establish server connection
@@ -27,7 +36,6 @@ def main():
 
     # Begin loop
     old_url = ""
-    album_cover_image = ""
 
     try:
         # Connect to host
@@ -43,12 +51,12 @@ def main():
             if c.output:
                 print("recieved data:\n" + str(data))
 
-            title, artist, artURL, length, is_playing, album, position = utils.parse_info(data)
+            current_song = utils.parse_info(data)
             
-            if old_url != artURL and artURL != "" and title != "null":
-                response = requests.get(artURL)
-                album_cover_image = pygame.image.load(io.BytesIO(response.content))
-                album_cover_image = pygame.transform.smoothscale(album_cover_image, c.album_cover_size)
+            if old_url != current_song.album_cover_image and current_song.album_cover_image != "" and current_song.title != "null":
+                response = requests.get(current_song.album_cover_image)
+                current_song.album_cover_image = pygame.image.load(io.BytesIO(response.content))
+                current_song.album_cover_image = pygame.transform.smoothscale(current_song.album_cover_image, c.album_cover_size)
 
             # Make window closeable w/ space
             for event in pygame.event.get():
@@ -59,15 +67,15 @@ def main():
             # Draw on screen
             screen.fill(c.background_color)
 
-            if title == "null" or album_cover_image == "" or title == "":
+            if current_song.title == "null" or current_song.album_cover_image == "" or current_song.title == "":
                 rendering.no_media(screen)
-            elif c.mode == "Full":
+            elif c.mode == "Standard":
                 # General song information
-                rendering.render_full(screen, title, artist, album, album_cover_image, position, length)
+                rendering.render_standard(screen, current_song)
 
             time.sleep(0.3)
             
-            old_url = artURL
+            old_url = current_song.album_cover_image
 
             pygame.display.flip()
     except KeyboardInterrupt:
