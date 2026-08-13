@@ -12,6 +12,7 @@ background_color = (30,30,30)
 display_size = (480,320)
 
 line_padding = 7
+padding_top = 6
 horizontal_padding = 4
 
 mode = "Centered" # Options are 'Standard' and 'Centered'
@@ -26,14 +27,18 @@ album_cover_size = (180,180)
 main_text_color = (255,255,255)
 secondary_text_color = (180,180,180)
 
-main_font = "Source Code Pro"
-main_font_bold = True
-secondary_font = "Source Code Pro"
+main_font = "Gotham Medium"
+main_font_bold = False
+secondary_font = "Gotham"
 secondary_font_bold = False
 
-main_font_size = 20
-secondary_font_size = 16
+main_font_size = 34
+secondary_font_size = 25
 
+# Text spacing (this is really unclear and idc)
+spacing_one = 40
+spacing_two = 38
+spacing_three = 32
 
 #############################
 ### Misc                  ###

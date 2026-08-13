@@ -58,6 +58,10 @@ def main():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
                         running = False
+            
+            # Close instantly instead of finishing loop
+            if running == False:
+                break
 
             # Draw on screen
             screen.fill(c.background_color)
