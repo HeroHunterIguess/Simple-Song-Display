@@ -27,19 +27,24 @@ album_cover_size = (180,180)
 
 main_text_color = (255,255,255)
 secondary_text_color = (180,180,180)
+tertiary_text_color = (155,155,155)
 
 main_font = "Gotham Medium"
 main_font_bold = False
 secondary_font = "Gotham Light"
 secondary_font_bold = False
 
-main_font_size = 34
+main_font_size = 36
 secondary_font_size = 25
+tertiary_font_size = 21
+
+tertiary_italic = True
 
 # Text spacing (this is really unclear and idc)
-spacing_one = 38
-spacing_two = 44
-spacing_three = 35
+spacing_one = 205
+spacing_two = 240
+spacing_three = 263
+spacing_four = 296
 
 #############################
 ### Misc                  ###

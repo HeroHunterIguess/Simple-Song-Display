@@ -7,6 +7,8 @@ pygame.font.init()
 # Setup fonts
 main_font = pygame.font.SysFont(c.main_font, c.main_font_size, bold=c.main_font_bold)
 secondary_font = pygame.font.SysFont(c.secondary_font, c.secondary_font_size, bold=c.secondary_font_bold)
+tertiary_font = pygame.font.SysFont(c.secondary_font, c.tertiary_font_size, bold=c.secondary_font_bold, italic=c.tertiary_italic)
+
 no_media_font = pygame.font.SysFont(c.main_font, c.main_font_size * 2, bold=c.main_font_bold)
 
 # Loads image with given url
@@ -41,7 +43,7 @@ def render_standard(screen, c_s, old_url): # c_s is current_song
     ))
 
     # Album name
-    album_surface = secondary_font.render(c_s.album, True, c.secondary_text_color)
+    album_surface = tertiary_font.render(c_s.album, True, c.tertiary_text_color)
     screen.blit(album_surface, (
         c.album_cover_size[0] + c.horizontal_padding, 
         c.secondary_font_size + c.line_padding) * 2
@@ -87,28 +89,28 @@ def render_centered(screen, c_s, old_url): # c_s is current_song
     title_surface = main_font.render(c_s.title, True, c.main_text_color)
     screen.blit(title_surface, (
         c.display_size[0] / 2 - (main_font.size(c_s.title)[0] / 2), 
-        c.display_size[1] / 2 + c.spacing_one + c.padding_top
+        c.spacing_one
     ))
 
     # Artist name
     artist_surface = secondary_font.render(c_s.artist, True, c.secondary_text_color)
     screen.blit(artist_surface, (
         c.display_size[0] / 2 - (secondary_font.size(c_s.artist)[0] / 2), 
-        c.display_size[1] / 2 + c.spacing_two + c.main_font_size + c.line_padding
+        c.spacing_two
     ))
 
     # Album name
-    album_surface = secondary_font.render(c_s.album, True, c.secondary_text_color)
+    album_surface = tertiary_font.render(c_s.album, True, c.tertiary_text_color)
     screen.blit(album_surface, (
-        c.display_size[0] / 2 - (secondary_font.size(c_s.album)[0] / 2), 
-        c.display_size[1] / 2 + c.spacing_two + c.main_font_size * 2 + c.line_padding
+        c.display_size[0] / 2 - (tertiary_font.size(c_s.album)[0] / 2), 
+        c.spacing_three
     ))
 
     # Position in song
     position_surface = secondary_font.render(c_s.position + " / " + c_s.length, True, c.secondary_text_color)
     screen.blit(position_surface, (
         c.display_size[0] / 2 - (secondary_font.size(c_s.position+" / "+c_s.length)[0] / 2), 
-        c.display_size[1] / 2 + c.spacing_three + c.main_font_size * 3 + c.line_padding / 2
+        c.spacing_four
     ))
 
 # Empty screen if no media is playing
