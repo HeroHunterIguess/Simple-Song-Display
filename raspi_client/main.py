@@ -52,11 +52,6 @@ def main():
                 print("recieved data:\n" + str(data))
 
             current_song = utils.parse_info(data)
-            
-            if old_url != current_song.album_cover_image and current_song.album_cover_image != "" and current_song.title != "null":
-                response = requests.get(current_song.album_cover_image)
-                current_song.album_cover_image = pygame.image.load(io.BytesIO(response.content))
-                current_song.album_cover_image = pygame.transform.smoothscale(current_song.album_cover_image, c.album_cover_size)
 
             # Make window closeable w/ space
             for event in pygame.event.get():
@@ -71,7 +66,9 @@ def main():
                 rendering.no_media(screen)
             elif c.mode == "Standard":
                 # General song information
-                rendering.render_standard(screen, current_song)
+                rendering.render_standard(screen, current_song, old_url)
+            elif c.mode == "Centered":
+                rendering.render_centered(screen, current_song, old_url)
 
             time.sleep(0.3)
             

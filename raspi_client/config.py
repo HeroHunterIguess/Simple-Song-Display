@@ -14,9 +14,9 @@ display_size = (480,320)
 line_padding = 7
 horizontal_padding = 4
 
-mode = "Standard" # Currently 'Standard' is the only mode
+mode = "Centered" # Options are 'Standard' and 'Centered'
 
-album_cover_size = (72,72)
+album_cover_size = (180,180)
 
 
 #############################
@@ -31,8 +31,8 @@ main_font_bold = True
 secondary_font = "Monospace"
 secondary_font_bold = False
 
-main_font_size = 14
-secondary_font_size = 11
+main_font_size = 20
+secondary_font_size = 16
 
 
 #############################
