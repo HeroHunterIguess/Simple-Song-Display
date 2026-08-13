@@ -5,6 +5,7 @@ pygame.font.init()
 
 main_font = pygame.font.SysFont(c.main_font, c.main_font_size, bold=c.main_font_bold)
 secondary_font = pygame.font.SysFont(c.secondary_font, c.secondary_font_size, bold=c.secondary_font_bold)
+no_media_font = pygame.font.SysFont(c.main_font, c.main_font_size * 3, bold=c.main_font_bold)
 
 def render_full(screen, title, artist, album, album_cover_image, position, length):
 
@@ -38,5 +39,5 @@ def no_media(screen):
     else:
         screen.fill(c.background_color)
 
-    info_surface = main_font.render("No Media.", True, c.main_text_color)
-    screen.blit(info_surface, (c.horizontal_padding, 0))
+    info_surface = no_media_font.render("No Media.", True, c.main_text_color)
+    screen.blit(info_surface, (0, 0))
