@@ -1,5 +1,6 @@
 ### Simple Song Server ###
 ### Get currently playing song info and host it as server ###
+# Run in a systemd service called simple-song-server.service
 
 
 import subprocess, time, socket, utils
