@@ -99,12 +99,13 @@ def render_centered(screen, c_s): # c_s is current_song
             print("Failed to get background image:", err)
         return
 
-    # Setup, darken, and blur background
+    # Setup, darken, resize and blur background
     background_image = Image.open(io.BytesIO(response.content))
-    background_image = background_image.filter(ImageFilter.GaussianBlur(radius=22))
+    background_image = background_image.filter(ImageFilter.GaussianBlur(radius=c.gaussian_blur_radius))
     background_image = background_image.convert("RGB")
     background_image = ImageEnhance.Brightness(background_image).enhance(0.55)
     background = pygame.image.fromstring(background_image.tobytes(), background_image.size, background_image.mode)
+    background = pygame.transform.smoothscale(background, c.background_image_size)
 
     # Load standard album cover
     album_image_surface = load_image(c_s)

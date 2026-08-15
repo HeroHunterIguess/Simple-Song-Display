@@ -21,6 +21,8 @@ mode = "Centered" # Options are 'Standard' and 'Centered'
 album_cover_height = 13
 album_cover_size = (190,190)
 
+gaussian_blur_radius = 23
+background_image_size = (480,480)
 
 #############################
 ### Text                  ###

@@ -15,13 +15,16 @@ import pygame, utils, time, socket, requests, io, rendering, song_data
 pygame.display.init()
 pygame.font.init()
 
+# Initialize screen
 if raspi:
     screen = pygame.Surface(c.display_size)
 else:
     screen = pygame.display.set_mode(c.display_size)
 
+# Hide mouse cursor
 pygame.mouse.set_visible(False)
 
+# Initialize current song
 current_song = song_data.song(
     title = "",
     artist = "",
@@ -42,6 +45,14 @@ def main():
 
     # Begin loop
     old_url = ""
+
+    # Hide blinking cursor in console
+    if raspi:
+        try:
+            subprocess.run(["setterm", "-cursor", "off"], stdout=subprocess.DEVNULL)
+        except FileNotFoundError:
+            if c.output:
+                print("Setterm not found. Cannot disable blinking console cursor")
 
     try:
         # Try to connect to host
