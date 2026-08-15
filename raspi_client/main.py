@@ -52,7 +52,7 @@ def main():
     # Hide blinking cursor in console
     if raspi:
         try:
-            subprocess.run(["setterm", "-cursor", "off"], stdout=subprocess.DEVNULL)
+            subprocess.run(["setterm", "-cursor", "off"])
         except FileNotFoundError:
             if c.output:
                 print("Setterm not found. Cannot disable blinking console cursor")
