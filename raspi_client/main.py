@@ -44,10 +44,10 @@ def main():
     old_url = ""
 
     try:
-        # Connect to host
+        # Try to connect to host
         try: 
             client_socket.connect((host, port))
-        except ConnectionRefusedError as err:
+        except OSError as err:
             print("Server not found.", err)
             return
 
@@ -80,9 +80,9 @@ def main():
                 rendering.no_media(screen)
             elif c.mode == "Standard":
                 # General song information
-                rendering.render_standard(screen, current_song, old_url)
+                rendering.render_standard(screen, current_song)
             elif c.mode == "Centered":
-                rendering.render_centered(screen, current_song, old_url)
+                rendering.render_centered(screen, current_song)
 
             time.sleep(0.5)
             
