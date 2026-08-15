@@ -1,9 +1,10 @@
 ### Simple Song Server ###
 ### Get currently playing song info and host it as server ###
 
+
 import subprocess, time, socket, utils
 
-# Setup information to be sent
+# Setup/format information to be sent
 def setup_current_info(is_playing):
     title, artist, artURL, length, album, position = utils.get_current_playing()
 
@@ -17,17 +18,17 @@ def setup_current_info(is_playing):
 
     return final_info
 
-# Server
+# Start Server 
 def main():
     # Setup server
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     host = "0.0.0.0"
     port = 7463
 
+    # Try to start server
     try:
         server_socket.bind((host, port))
     except OSError as err:
-        # Set backup in case port is in use
         print("Port likely in use: " + str(err))
         return
     
@@ -49,6 +50,7 @@ def main():
                 except subprocess.TimeoutExpired:
                     status = ""
                 
+                # Check if song is playing or paused
                 if status == "Paused":
                     is_playing = False
                 elif status == "Playing":
@@ -59,6 +61,7 @@ def main():
                 # Send info to client
                 info = setup_current_info(is_playing)
 
+                # Try to send data
                 try: 
                     client_socket.send(info.encode("utf-8"))
                 # End loop if client disconnects

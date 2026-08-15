@@ -7,6 +7,9 @@
 ### Appearance            ###
 #############################
 
+# Config will likely look bad on a different mode
+mode = "Centered" # Options are 'Standard' and 'Centered'
+
 background_color = (30,30,30)
 
 display_size = (480,320)
@@ -15,14 +18,12 @@ line_padding = 7
 padding_top = 6
 horizontal_padding = 4
 
-# Config will likely look bad on a different mode
-mode = "Centered" # Options are 'Standard' and 'Centered'
-
 album_cover_height = 13
 album_cover_size = (190,190)
 
-gaussian_blur_radius = 23
+gaussian_blur_radius = 21
 background_image_size = (480,480)
+
 
 #############################
 ### Text                  ###
@@ -46,20 +47,9 @@ tertiary_italic = True
 # Text spacing
 # This is the height of each line of text
 spacing_one = 209
-spacing_two = 239
-spacing_three = 266
-spacing_four = 292
-
-#############################
-### Misc                  ###
-#############################
-
-# truncation length unused:
-truncation_length = 10 # Length of a line of text before its shortened
-
-no_media_background_image_link = "https://c10.patreonusercontent.com/4/patreon-media/p/post/152305127/0ef2dacadccf4136bacbe9ab00e37fa6/eyJxIjoxMDAsIndlYnAiOjB9/1.jpg?token-hash=Hb8MbNOVwjsZ9YkyGhFd1sMHx-atmAJRZMMqbKtYEvY%3D&token-time=1787788800"
-
-no_media_message = "No Media."
+spacing_two = 240
+spacing_three = 267
+spacing_four = 290
 
 
 #############################
@@ -67,4 +57,14 @@ no_media_message = "No Media."
 #############################
 
 output = True # General output messages
-output_transfer_info = False # Output each data transfer recieved data
+output_transfer_info = False # Output the data recieved in each transfer
+
+
+#############################
+### Misc                  ###
+#############################
+
+truncation_length = 10 # UNUSED # Length of a line of text before its shortened 
+
+no_media_background_image_link = "https://c10.patreonusercontent.com/4/patreon-media/p/post/152305127/0ef2dacadccf4136bacbe9ab00e37fa6/eyJxIjoxMDAsIndlYnAiOjB9/1.jpg?token-hash=Hb8MbNOVwjsZ9YkyGhFd1sMHx-atmAJRZMMqbKtYEvY%3D&token-time=1787788800"
+no_media_message = "No Media."

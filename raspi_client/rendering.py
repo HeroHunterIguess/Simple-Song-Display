@@ -1,5 +1,7 @@
 ### Render song display ###
 
+
+# Imports and initalization
 import pygame, utils, requests, io, config as c 
 from PIL import Image, ImageFilter, ImageEnhance
 pygame.font.init()
@@ -11,6 +13,7 @@ tertiary_font = pygame.font.SysFont(c.secondary_font, c.tertiary_font_size, bold
 
 no_media_font = pygame.font.SysFont(c.main_font, c.main_font_size * 2, bold=c.main_font_bold)
 
+# Initialize album cover cache
 cached_album_cover_surface = None
 cached_album_cover_link = None
 
@@ -99,7 +102,7 @@ def render_centered(screen, c_s): # c_s is current_song
             print("Failed to get background image:", err)
         return
 
-    # Setup, darken, resize and blur background
+    # Setup, darken, blur, and resize background
     background_image = Image.open(io.BytesIO(response.content))
     background_image = background_image.filter(ImageFilter.GaussianBlur(radius=c.gaussian_blur_radius))
     background_image = background_image.convert("RGB")
@@ -165,6 +168,7 @@ def no_media(screen):
             screen.fill(c.background_color) 
             return
 
+        # Draw background image
         screen.blit(background_image, (0, 0))
     else:
         screen.fill(c.background_color)
@@ -176,6 +180,7 @@ def no_media(screen):
         (c.display_size[1] / 2) - (c.main_font_size * 2) / 2)
     )
 
+# Convert pygame surface into framebuffer
 def convert_screen_format_and_draw(screen):
     with open("/dev/fb1", "wb") as fb:
         fb.write(screen.convert(16, 0).get_buffer())

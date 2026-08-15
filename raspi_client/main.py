@@ -1,6 +1,8 @@
 # Simple Song Display
+# Display client
 
-# Setup correct video driver for when there is no DE installed
+
+# Check if user is main pc or raspberry pi
 import os, subprocess, config as c
 if "herohunter" not in str(subprocess.run("whoami", shell=True, capture_output=True, text=True)).strip():
     if c.output:
@@ -35,6 +37,10 @@ current_song = song_data.song(
     is_playing = False
 )
 
+# Remove external stop condition file
+if os.path.exists("/tmp/stop_display"):
+    os.remove("/tmp/stop_display")
+
 def main():
     # Establish server connection
     host = "192.168.1.126"
@@ -42,9 +48,6 @@ def main():
 
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client_socket.settimeout(2.0)
-
-    # Begin loop
-    old_url = ""
 
     # Hide blinking cursor in console
     if raspi:
@@ -62,6 +65,7 @@ def main():
             print("Server not found.", err)
             return
 
+        # Begin main loop
         running = True
         while running:
             try:
@@ -72,9 +76,10 @@ def main():
             if c.output_transfer_info:
                 print("recieved data:\n" + str(data) + "\n")
 
+            # Get metadata about current song
             current_song = utils.parse_info(data)
 
-            # Make window closeable w/ space
+            # Make window closeable w/ space on pc
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
@@ -94,18 +99,27 @@ def main():
                 rendering.render_standard(screen, current_song)
             elif c.mode == "Centered":
                 rendering.render_centered(screen, current_song)
+            else:
+                print("No valid mode selected.")
+                running = False
+                break
 
             time.sleep(0.5)
-            
-            old_url = current_song.album_cover_image
 
+            # External shutdown condition
+            if os.path.exists("/tmp/stop_display"):
+                running = False
+
+            # Convert rendered surface to framebuffer and draw
             if raspi:
                 rendering.convert_screen_format_and_draw(screen)
             else:
                 pygame.display.flip()
+
+    # Close client
     except KeyboardInterrupt:
         if c.output:
-            print("client closing")
+            print("Client closing")
     
     client_socket.close()
 

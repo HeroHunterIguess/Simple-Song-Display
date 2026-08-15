@@ -1,8 +1,11 @@
-### UTIL FUNCTIONS ###
+### Util functions ###
+
 
 import io, song_data
 
+# Parse song metadata into song object
 def parse_info(data):
+    # Initialize song
     current_song = song_data.song(
         title = "",
         artist = "",
@@ -13,6 +16,7 @@ def parse_info(data):
         is_playing = False
     )
 
+    # If it isnt real then make it empty
     if data == "":
         current_song.title = ""
         current_song.artist = ""
@@ -34,6 +38,7 @@ def parse_info(data):
         
     return current_song
 
+# Format time in seconds into minutes:seconds
 def format_time(seconds):
     if seconds == "":
         return
