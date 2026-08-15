@@ -14,7 +14,12 @@ no_media_font = pygame.font.SysFont(c.main_font, c.main_font_size * 2, bold=c.ma
 # Loads image with given url
 def load_image(old_url, c_s): 
     if old_url != c_s.album_cover_image and c_s.album_cover_image != "" and c_s.title != "null":
-        response = requests.get(c_s.album_cover_image)
+        try:
+            response = requests.get(c_s.album_cover_image, timeout=2)
+        except requests.exceptions.RequestException as err:
+            if c.output:
+                print("Failed to get album art", err)
+            return
         c_s.album_cover_image = pygame.image.load(io.BytesIO(response.content))
         c_s.album_cover_image = pygame.transform.smoothscale(c_s.album_cover_image, c.album_cover_size)
 
@@ -50,7 +55,11 @@ def render_standard(screen, c_s, old_url): # c_s is current_song
     )
 
     # Album cover
-    screen.blit(c_s.album_cover_image, (0, 0))
+    try:
+        screen.blit(c_s.album_cover_image, (0, 0))
+    except TypeError:
+        if c.output:
+            print("Album cover failed to load and render")
 
     # Position in song
     position_surface = secondary_font.render(str(c_s.position) + " / " + str(c_s.length), True, c.secondary_text_color)
@@ -67,7 +76,12 @@ def render_centered(screen, c_s, old_url): # c_s is current_song
     c_s.length = utils.format_time(c_s.length)
 
     # Get album cover image
-    response = requests.get(c_s.album_cover_image)
+    try:
+        response = requests.get(c_s.album_cover_image, timeout=2)
+    except requests.exceptions.RequestException as err:
+        if c.output:
+            print("Failed to get background image:", err)
+        return
 
     # Setup, darken, and blur background
     background_image = Image.open(io.BytesIO(response.content))
@@ -83,7 +97,11 @@ def render_centered(screen, c_s, old_url): # c_s is current_song
     screen.blit(background, (0, 0))
 
     # Album cover
-    screen.blit(c_s.album_cover_image, (c.display_size[0] / 2 - c.album_cover_size[0] / 2, c.display_size[1] / 2 - c.album_cover_size[1] / 2 - 50))
+    try:
+        screen.blit(c_s.album_cover_image, (c.display_size[0] / 2 - c.album_cover_size[0] / 2, c.display_size[1] / 2 - c.album_cover_size[1] / 2 - 50))
+    except TypeError:
+        if c.output:
+            print("Album cover failed to load and render")
 
     # Song name
     title_surface = main_font.render(c_s.title, True, c.main_text_color)
@@ -117,15 +135,27 @@ def render_centered(screen, c_s, old_url): # c_s is current_song
 def no_media(screen):
     # Load background if there is one
     if c.no_media_background_image_link != "":
-        response = requests.get(c.no_media_background_image_link)
-        background_image = pygame.image.load(io.BytesIO(response.content))
-        background_image = pygame.transform.smoothscale(background_image, c.display_size)
+        try:
+            response = requests.get(c.no_media_background_image_link, timeout=2)
+            background_image = pygame.image.load(io.BytesIO(response.content))
+            background_image = pygame.transform.smoothscale(background_image, c.display_size)
+        except requests.exceptions.RequestException as err:
+            if c.output:
+                print("Failed to get no-media background", err)
+            screen.fill(c.background_color) 
+            return
 
         screen.blit(background_image, (0, 0))
     else:
         screen.fill(c.background_color)
 
     # Draw background and text
-    info_surface = no_media_font.render("No Media.", True, c.main_text_color)
-    screen.blit(info_surface, (0, 0))
+    info_surface = no_media_font.render(c.no_media_message, True, c.main_text_color)
+    screen.blit(info_surface, (
+        (c.display_size[0] / 2) - no_media_font.size(c.no_media_message)[0] / 2, 
+        (c.display_size[1] / 2) - (c.main_font_size * 2) / 2)
+    )
 
+def convert_screen_format_and_draw(screen):
+    with open("/dev/fb1", "wb") as fb:
+        fb.write(screen.convert(16, 0).get_buffer())

@@ -44,7 +44,11 @@ def main():
 
             while True:
                 # Loop getting song info
-                status = subprocess.run("playerctl --player=subtui,spotify status", shell=True, capture_output=True, text=True).stdout.strip()
+                try:
+                    status = subprocess.run(["playerctl", "--player=subtui,spotify", "status"], capture_output=True, text=True, timeout=1).stdout.strip()
+                except subprocess.TimeoutExpired:
+                    status = ""
+                
                 if status == "Paused":
                     is_playing = False
                 elif status == "Playing":

@@ -14,18 +14,24 @@ def parse_info(data):
     )
 
     if data == "":
-        return "null", "null", "https://null.com", 0, False, "null", 0
-
-    # Split data into individual values
-    buffer = io.StringIO(data)
-    current_song.title = buffer.readline().strip()
-    current_song.artist = buffer.readline().strip()
-    current_song.album_cover_image = buffer.readline().strip()
-    current_song.length = buffer.readline().strip()
-    current_song.is_playing = buffer.readline().strip()
-    current_song.album = buffer.readline().strip()
-    current_song.position = buffer.readline().strip()
-    
+        current_song.title = ""
+        current_song.artist = ""
+        current_song.album_cover_image = ""
+        current_song.length = ""
+        current_song.is_playing = ""
+        current_song.album = ""
+        current_song.position = ""
+    else:
+        # Split data into individual values
+        buffer = io.StringIO(data)
+        current_song.title = buffer.readline().strip()
+        current_song.artist = buffer.readline().strip()
+        current_song.album_cover_image = buffer.readline().strip()
+        current_song.length = buffer.readline().strip()
+        current_song.is_playing = buffer.readline().strip()
+        current_song.album = buffer.readline().strip()
+        current_song.position = buffer.readline().strip()
+        
     return current_song
 
 def format_time(seconds):

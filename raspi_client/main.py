@@ -1,19 +1,24 @@
 # Simple Song Display
 
 # Setup correct video driver for when there is no DE installed
-import os, subprocess
+import os, subprocess, config as c
 if "herohunter" not in str(subprocess.run("whoami", shell=True, capture_output=True, text=True)).strip():
     if c.output:
-        print("Switching to KMSDRM.")
-    os.environ["SDL_VIDEODRIVER"] = "kmsdrm"
+        print("Running on raspberry pi.")
+    raspi = True
+else:
+    raspi = False
 
 # Setup and initialization
-import pygame, utils, time, socket, requests, io, rendering, song_data, config as c
+import pygame, utils, time, socket, requests, io, rendering, song_data
 
 pygame.display.init()
 pygame.font.init()
 
-screen = pygame.display.set_mode(c.display_size)
+if raspi:
+    screen = pygame.Surface(c.display_size)
+else:
+    screen = pygame.display.set_mode(c.display_size)
 
 pygame.mouse.set_visible(False)
 
@@ -33,6 +38,7 @@ def main():
     port = 7463
 
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    client_socket.settimeout(2.0)
 
     # Begin loop
     old_url = ""
@@ -47,9 +53,13 @@ def main():
 
         running = True
         while running:
-            data = client_socket.recv(1024).decode("utf-8")
-            if c.output:
-                print("recieved data:\n" + str(data))
+            try:
+                data = client_socket.recv(1024).decode("utf-8")
+            except socket.timeout:
+                continue
+            
+            if c.output_transfer_info:
+                print("recieved data:\n" + str(data) + "\n")
 
             current_song = utils.parse_info(data)
 
@@ -74,11 +84,14 @@ def main():
             elif c.mode == "Centered":
                 rendering.render_centered(screen, current_song, old_url)
 
-            time.sleep(0.3)
+            time.sleep(0.5)
             
             old_url = current_song.album_cover_image
 
-            pygame.display.flip()
+            if raspi:
+                rendering.convert_screen_format_and_draw(screen)
+            else:
+                pygame.display.flip()
     except KeyboardInterrupt:
         if c.output:
             print("client closing")
@@ -87,3 +100,4 @@ def main():
 
 main()
 pygame.quit()
+
