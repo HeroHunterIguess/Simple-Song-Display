@@ -1,7 +1,7 @@
 ### Util functions ###
 
 
-import io, song_data, config as c
+import io, song_data, subprocess, config as c
 
 # Parse song metadata into song object
 def parse_info(data):
@@ -54,3 +54,13 @@ def format_time(seconds):
     remaining_seconds = seconds % 60;
 
     return f"{minutes}:{remaining_seconds:02d}";
+
+# Try multiple ways to hide blinking cursor in console
+def stop_cursor_blink(raspi):
+    if raspi:
+        try:
+            with open("/sys/class/graphics/fbcon/cursor_blink", "w") as f:
+                f.write("0")
+        except OSError as err:
+            if c.output:
+                print("Failed to disable blinking:", err)

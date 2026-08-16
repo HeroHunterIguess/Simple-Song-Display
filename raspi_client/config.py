@@ -41,8 +41,8 @@ secondary_font = "Gotham Light"
 secondary_font_bold = False
 
 main_font_size = 36
-secondary_font_size = 26
-tertiary_font_size = 21
+secondary_font_size = 27
+tertiary_font_size = 22
 
 tertiary_italic = True
 
@@ -58,7 +58,7 @@ spacing_four = 290
 ### Debug                 ###
 #############################
 
-output = False # General output messages
+output = True # General output messages
 output_transfer_info = False # Output the data recieved in each transfer
 
 

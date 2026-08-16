@@ -50,20 +50,7 @@ def main():
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client_socket.settimeout(2.0)
 
-    # Try multiple ways to hide blinking cursor in console
-    if raspi:
-        try:
-            subprocess.run(["setterm", "-cursor", "off"])
-        except FileNotFoundError:
-            if c.output:
-                print("Setterm not found. Cannot disable blinking console cursor")
-        
-        try:
-            with open("/sys/class/graphics/fbcon/cursor_blink", "w") as f:
-                f.write("0")
-        except OSError as err:
-            if c.output:
-                print("Failed to disable blinking:", err)
+    utils.stop_cursor_blink(raspi)
 
     try:
         # Try to connect to host
@@ -126,6 +113,9 @@ def main():
                 rendering.convert_screen_format_and_draw(screen)
             else:
                 pygame.display.flip()
+
+            # Try to stop cursor blink
+            utils.stop_cursor_blink(raspi)
 
     # Close client
     except KeyboardInterrupt:
