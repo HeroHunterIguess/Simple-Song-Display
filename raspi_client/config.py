@@ -58,7 +58,7 @@ spacing_four = 290
 ### Debug                 ###
 #############################
 
-output = True # General output messages
+output = False # General output messages
 output_transfer_info = False # Output the data recieved in each transfer
 
 

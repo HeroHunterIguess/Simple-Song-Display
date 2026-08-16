@@ -50,20 +50,28 @@ def main():
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client_socket.settimeout(2.0)
 
-    # Hide blinking cursor in console
+    # Try multiple ways to hide blinking cursor in console
     if raspi:
         try:
             subprocess.run(["setterm", "-cursor", "off"])
         except FileNotFoundError:
             if c.output:
                 print("Setterm not found. Cannot disable blinking console cursor")
+        
+        try:
+            with open("/sys/class/graphics/fbcon/cursor_blink", "w") as f:
+                f.write("0")
+        except OSError as err:
+            if c.output:
+                print("Failed to disable blinking:", err)
 
     try:
         # Try to connect to host
         try: 
             client_socket.connect((host, port))
         except OSError as err:
-            print("Server not found.", err)
+            if c.output:
+                print("Server not found.", err)
             return
 
         # Begin main loop
@@ -101,7 +109,8 @@ def main():
             elif c.mode == "Centered":
                 rendering.render_centered(screen, current_song)
             else:
-                print("No valid mode selected.")
+                if c.output:
+                    print("No valid mode selected.")
                 running = False
                 break
 
@@ -110,6 +119,7 @@ def main():
             # External shutdown condition
             if os.path.exists("/tmp/stop_display"):
                 running = False
+                break
 
             # Convert rendered surface to framebuffer and draw
             if raspi:

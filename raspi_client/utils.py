@@ -1,7 +1,7 @@
 ### Util functions ###
 
 
-import io, song_data
+import io, song_data, config as c
 
 # Parse song metadata into song object
 def parse_info(data):
@@ -46,7 +46,8 @@ def format_time(seconds):
     try:
         seconds = int(float(seconds))
     except ValueError as err:
-        print("Error converting properly:", err)
+        if c.output:
+            print("Error converting properly:", err)
         seconds = int(seconds)
 
     minutes = seconds // 60;
