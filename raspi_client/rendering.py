@@ -154,7 +154,7 @@ def render_centered(screen, c_s): # c_s is current_song
         c.spacing_four
     ))
 
-    # Render pause icon
+    # Render paused menu
     if c_s.is_playing == "False":
         overlay_surface = pygame.Surface(c.display_size)
         overlay_surface.set_alpha(c.paused_darkening)
@@ -194,8 +194,13 @@ def no_media(screen):
         screen.blit(background_image, (0, 0))
     else:
         screen.fill(c.background_color)
+    
+    overlay_surface = pygame.Surface(c.display_size)
+    overlay_surface.set_alpha(c.paused_darkening)
+    overlay_surface.fill((0,0,0))
+    screen.blit(overlay_surface, (0,0))
 
-    # Draw background and text
+    # Draw text
     info_surface = no_media_font.render(c.no_media_message, True, c.main_text_color)
     screen.blit(info_surface, (
         (c.display_size[0] / 2) - no_media_font.size(c.no_media_message)[0] / 2, 
