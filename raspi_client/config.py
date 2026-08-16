@@ -24,6 +24,8 @@ album_cover_size = (190,190)
 gaussian_blur_radius = 21
 background_image_size = (480,480)
 
+background_brightness = 0.4
+
 
 #############################
 ### Text                  ###

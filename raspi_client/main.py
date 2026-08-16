@@ -1,5 +1,6 @@
-# Simple Song Display
+### Simple Song Display ###
 # Display client
+# This client runs from a systemctl service on the raspi
 
 
 # Check if user is main pc or raspberry pi

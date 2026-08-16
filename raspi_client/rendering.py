@@ -106,7 +106,7 @@ def render_centered(screen, c_s): # c_s is current_song
     background_image = Image.open(io.BytesIO(response.content))
     background_image = background_image.filter(ImageFilter.GaussianBlur(radius=c.gaussian_blur_radius))
     background_image = background_image.convert("RGB")
-    background_image = ImageEnhance.Brightness(background_image).enhance(0.55)
+    background_image = ImageEnhance.Brightness(background_image).enhance(c.background_brightness)
     background = pygame.image.fromstring(background_image.tobytes(), background_image.size, background_image.mode)
     background = pygame.transform.smoothscale(background, c.background_image_size)
 
