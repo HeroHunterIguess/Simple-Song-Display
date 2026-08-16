@@ -154,6 +154,28 @@ def render_centered(screen, c_s): # c_s is current_song
         c.spacing_four
     ))
 
+    # Render pause icon
+    if c_s.is_playing == "False":
+        overlay_surface = pygame.Surface(c.display_size)
+        overlay_surface.set_alpha(c.paused_darkening)
+        overlay_surface.fill((0,0,0))
+        screen.blit(overlay_surface, (0,0))
+
+        try:
+            response = requests.get(c.pause_icon, timeout=2)
+
+            pause_surface = pygame.image.load(io.BytesIO(response.content))
+            pause_surface = pygame.transform.smoothscale(pause_surface, c.album_cover_size)
+
+            screen.blit(pause_surface, (
+                c.display_size[0] / 2 - c.album_cover_size[0] / 2, 
+                c.album_cover_height
+            ))
+
+        except (requests.exceptions.RequestException, pygame.error) as err:
+            if c.output:
+                print("Failed to get or load pause icon", err)
+
 # Empty screen if no media is playing
 def no_media(screen):
     # Load background if there is one
