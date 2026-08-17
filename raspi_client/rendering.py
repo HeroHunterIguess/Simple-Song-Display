@@ -176,22 +176,29 @@ def render_centered(screen, c_s): # c_s is current_song
             if c.output:
                 print("Failed to get or load pause icon", err)
 
+cached_no_media_background = None
+
 # Empty screen if no media is playing
 def no_media(screen):
     # Load background if there is one
     if c.no_media_background_image_link != "":
-        try:
-            response = requests.get(c.no_media_background_image_link, timeout=2)
-            background_image = pygame.image.load(io.BytesIO(response.content))
-            background_image = pygame.transform.smoothscale(background_image, c.display_size)
-        except requests.exceptions.RequestException as err:
-            if c.output:
-                print("Failed to get no-media background", err)
-            screen.fill(c.background_color) 
-            return
+        if cached_no_media_background is not None:
+            try:
+                response = requests.get(c.no_media_background_image_link, timeout=2)
+                background_image = pygame.image.load(io.BytesIO(response.content))
+                background_image = pygame.transform.smoothscale(background_image, c.display_size)
 
-        # Draw background image
-        screen.blit(background_image, (0, 0))
+                cached_no_media_background = background_image
+            except requests.exceptions.RequestException as err:
+                if c.output:
+                    print("Failed to get no-media background", err)
+                screen.fill(c.background_color) 
+                return
+
+            # Draw background image
+            screen.blit(background_image, (0, 0))
+        else:
+            screen.blit(cached_no_media_background, (0, 0))
     else:
         screen.fill(c.background_color)
     
