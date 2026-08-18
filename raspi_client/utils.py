@@ -57,13 +57,14 @@ def format_time(seconds):
 
 # Try multiple ways to hide blinking cursor in console
 def stop_cursor_blink(raspi):
-    if raspi:
-        try:
-            with open("/sys/class/graphics/fbcon/cursor_blink", "w") as f:
-                f.write("0")
-        except OSError as err:
-            if c.output:
-                log_output("Failed to disable blinking: " + str(err))
+    return
+    #if raspi:
+    #    try:
+    #        with open("/sys/class/graphics/fbcon/cursor_blink", "w") as f:
+    #            f.write("0")
+    #    except OSError as err:
+    #        if c.output:
+    #            log_output("Failed to disable blinking: " + str(err))
 
 # Add message to log file
 def log_output(message):
