@@ -174,31 +174,32 @@ def render_centered(screen, c_s): # c_s is current_song
 
         except (requests.exceptions.RequestException, pygame.error) as err:
             if c.output:
-                print("Failed to get or load pause icon", err)
+                print("Failed to get or load pause icon:", err)
 
 cached_no_media_background = None
 
 # Empty screen if no media is playing
 def no_media(screen):
+    global cached_no_media_background
     # Load background if there is one
     if c.no_media_background_image_link != "":
-        #if cached_no_media_background is not None:
-        try:
-            response = requests.get(c.no_media_background_image_link, timeout=2)
-            background_image = pygame.image.load(io.BytesIO(response.content))
-            background_image = pygame.transform.smoothscale(background_image, c.display_size)
+        if cached_no_media_background is None:
+            try:
+                response = requests.get(c.no_media_background_image_link, timeout=2)
+                background_image = pygame.image.load(io.BytesIO(response.content))
+                background_image = pygame.transform.smoothscale(background_image, c.display_size)
 
-            cached_no_media_background = background_image
-        except requests.exceptions.RequestException as err:
-            if c.output:
-                print("Failed to get no-media background", err)
-            screen.fill(c.background_color) 
-            return
+                cached_no_media_background = background_image
+            except requests.exceptions.RequestException as err:
+                if c.output:
+                    print("Failed to get no-media background:", err)
+                screen.fill(c.background_color) 
+                return
 
-        # Draw background image
-        screen.blit(background_image, (0, 0))
-        #else:
-        #    screen.blit(cached_no_media_background, (0, 0))
+            # Draw background image
+            screen.blit(background_image, (0, 0))
+        else:
+            screen.blit(cached_no_media_background, (0, 0))
     else:
         screen.fill(c.background_color)
     

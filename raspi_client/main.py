@@ -13,7 +13,7 @@ else:
     raspi = False
 
 # Setup and initialization
-import pygame, utils, time, socket, requests, io, rendering, song_data
+import pygame, utils, time, socket, requests, io, rendering, song_data, datetime
 
 pygame.display.init()
 pygame.font.init()
@@ -51,6 +51,10 @@ def main():
     client_socket.settimeout(2.0)
 
     utils.stop_cursor_blink(raspi)
+
+    # Reset log file
+    with open(c.log_file, "w") as f:
+        f.write(str(datetime.datetime.now()))
 
     try:
         # Try to connect to host

@@ -64,3 +64,6 @@ def stop_cursor_blink(raspi):
         except OSError as err:
             if c.output:
                 print("Failed to disable blinking:", err)
+
+def log_output(message):
+    pass
