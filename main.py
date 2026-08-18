@@ -73,7 +73,7 @@ def main():
                     print("BROKEN PIPE: CLIENT LIKELY DISCONNECTED:", err)
                     break
                 
-                time.sleep(0.5)
+                time.sleep(0.4)
         
         # Stop server
         except KeyboardInterrupt:

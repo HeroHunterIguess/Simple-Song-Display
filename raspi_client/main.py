@@ -110,7 +110,7 @@ def main():
                 running = False
                 break
 
-            time.sleep(0.5)
+            time.sleep(0.4)
 
             # Convert rendered surface to framebuffer and draw
             if raspi:
