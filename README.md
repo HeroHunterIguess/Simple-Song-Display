@@ -2,6 +2,8 @@
 
 A song display for Raspberry Pi streaming information from another computer
 
+## A lot of this code is very bad I know !!!!!!!!!!!!!
+
 # WARNING: THIS IS JUST MADE FOR PERSONAL USE FOR ME
 If you want to use this yourself - this code will need lots of modifications, and you will need multiple dependencies.
 
