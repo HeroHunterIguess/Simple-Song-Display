@@ -7,7 +7,7 @@
 import os, subprocess, config as c
 if "herohunter" not in str(subprocess.run("whoami", shell=True, capture_output=True, text=True)).strip():
     if c.output:
-        print("Running on raspberry pi.")
+        log_output("Running on raspberry pi.")
     raspi = True
 else:
     raspi = False
@@ -39,8 +39,8 @@ current_song = song_data.song(
 )
 
 # Remove external stop condition file
-if os.path.exists("/tmp/stop_display"):
-    os.remove("/tmp/stop_display")
+if os.path.exists("/home/hero/stop_display"):
+    os.remove("/home/hero/stop_display")
 
 def main():
     # Establish server connection
@@ -62,7 +62,7 @@ def main():
             client_socket.connect((host, port))
         except OSError as err:
             if c.output:
-                print("Server not found.", err)
+                log_output("Server not found.", err)
             return
 
         # Begin main loop
@@ -74,10 +74,15 @@ def main():
                 continue
             
             if c.output_transfer_info:
-                print("recieved data:\n" + str(data) + "\n")
+                log_output("recieved data:\n" + str(data) + "\n")
 
             # Get metadata about current song
             current_song = utils.parse_info(data)
+
+            # External shutdown condition
+            if raspi:
+                if os.path.exists("/home/hero/stop_display"):
+                    running = False
 
             # Make window closeable w/ space on pc
             for event in pygame.event.get():
@@ -101,16 +106,11 @@ def main():
                 rendering.render_centered(screen, current_song)
             else:
                 if c.output:
-                    print("No valid mode selected.")
+                    log_output("No valid mode selected.")
                 running = False
                 break
 
             time.sleep(0.5)
-
-            # External shutdown condition
-            if os.path.exists("/tmp/stop_display"):
-                running = False
-                break
 
             # Convert rendered surface to framebuffer and draw
             if raspi:
@@ -124,7 +124,7 @@ def main():
     # Close client
     except KeyboardInterrupt:
         if c.output:
-            print("Client closing")
+            log_output("Client closing")
     
     client_socket.close()
 

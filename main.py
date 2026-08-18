@@ -30,7 +30,7 @@ def main():
     try:
         server_socket.bind((host, port))
     except OSError as err:
-        print("Port likely in use: " + str(err))
+        print("Port likely in use:", err)
         return
     
     server_socket.listen(5)
@@ -70,7 +70,7 @@ def main():
                     print("CLIENT DISCONNECTED: " + str(err))
                     break
                 except BrokenPipeError as err:
-                    print("BROKEN PIPE: CLIENT LIKELY DISCONNECTED: " + str(err))
+                    print("BROKEN PIPE: CLIENT LIKELY DISCONNECTED:", err)
                     break
                 
                 time.sleep(0.5)

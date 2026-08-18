@@ -47,7 +47,7 @@ def format_time(seconds):
         seconds = int(float(seconds))
     except ValueError as err:
         if c.output:
-            print("Error converting properly:", err)
+            log_output("Error converting properly:", err)
         seconds = int(seconds)
 
     minutes = seconds // 60;
@@ -63,7 +63,9 @@ def stop_cursor_blink(raspi):
                 f.write("0")
         except OSError as err:
             if c.output:
-                print("Failed to disable blinking:", err)
+                log_output("Failed to disable blinking:", err)
 
+# Add message to log file
 def log_output(message):
-    pass
+    with open(c.log_file, "a") as f:
+        f.write(message+"\n")
