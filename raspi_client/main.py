@@ -7,7 +7,7 @@
 import os, subprocess, config as c
 if "herohunter" not in str(subprocess.run("whoami", shell=True, capture_output=True, text=True)).strip():
     if c.output:
-        log_output("Running on raspberry pi.")
+        utils.log_output("Running on raspberry pi.")
     raspi = True
 else:
     raspi = False
@@ -62,7 +62,7 @@ def main():
             client_socket.connect((host, port))
         except OSError as err:
             if c.output:
-                log_output("Server not found.", err)
+                utils.log_output("Server not found.", err)
             return
 
         # Begin main loop
@@ -74,7 +74,7 @@ def main():
                 continue
             
             if c.output_transfer_info:
-                log_output("recieved data:\n" + str(data) + "\n")
+                utils.log_output("recieved data:\n" + str(data) + "\n")
 
             # Get metadata about current song
             current_song = utils.parse_info(data)
@@ -106,7 +106,7 @@ def main():
                 rendering.render_centered(screen, current_song)
             else:
                 if c.output:
-                    log_output("No valid mode selected.")
+                    utils.log_output("No valid mode selected.")
                 running = False
                 break
 
@@ -124,7 +124,7 @@ def main():
     # Close client
     except KeyboardInterrupt:
         if c.output:
-            log_output("Client closing")
+            utils.log_output("Client closing")
     
     client_socket.close()
 
