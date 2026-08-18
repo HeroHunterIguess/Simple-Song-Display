@@ -99,7 +99,7 @@ def render_centered(screen, c_s): # c_s is current_song
         response = requests.get(c_s.album_cover_image, timeout=2)
     except requests.exceptions.RequestException as err:
         if c.output:
-            utils.log_output("Failed to get background image:", err)
+            utils.log_output("Failed to get background image: " + str(err))
         return
 
     # Setup, darken, blur, and resize background
@@ -174,7 +174,7 @@ def render_centered(screen, c_s): # c_s is current_song
 
         except (requests.exceptions.RequestException, pygame.error) as err:
             if c.output:
-                utils.log_output("Failed to get or load pause icon:", err)
+                utils.log_output("Failed to get or load pause icon: " + str(err))
 
 cached_no_media_background = None
 
@@ -192,7 +192,7 @@ def no_media(screen):
                 cached_no_media_background = background_image
             except requests.exceptions.RequestException as err:
                 if c.output:
-                    utils.log_output("Failed to get no-media background:", err)
+                    utils.log_output("Failed to get no-media background: " + str(err))
                 screen.fill(c.background_color) 
                 return
 

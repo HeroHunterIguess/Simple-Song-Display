@@ -4,7 +4,7 @@
 
 
 # Check if user is main pc or raspberry pi
-import os, subprocess, config as c
+import os, subprocess, utils, config as c
 if "herohunter" not in str(subprocess.run("whoami", shell=True, capture_output=True, text=True)).strip():
     if c.output:
         utils.log_output("Running on raspberry pi.")
@@ -13,7 +13,7 @@ else:
     raspi = False
 
 # Setup and initialization
-import pygame, utils, time, socket, requests, io, rendering, song_data, datetime
+import pygame, time, socket, requests, io, rendering, song_data, datetime
 
 pygame.display.init()
 pygame.font.init()
@@ -62,7 +62,7 @@ def main():
             client_socket.connect((host, port))
         except OSError as err:
             if c.output:
-                utils.log_output("Server not found.", err)
+                utils.log_output("Server not found. " + str(err))
             return
 
         # Begin main loop
