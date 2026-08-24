@@ -42,50 +42,6 @@ def load_image(c_s):
     except requests.exceptions.RequestException as err:
         return cached_album_cover_surface
 
-# Render standard top left cornermode
-def render_standard(screen, c_s): # c_s is current_song
-
-    # Format times
-    c_s.position = utils.format_time(c_s.position)
-    c_s.length = utils.format_time(c_s.length)
-
-    # Load album cover
-    album_image_surface = load_image(c_s)
-
-    # Song name
-    title_surface = main_font.render(c_s.title, True, c.main_text_color)
-    screen.blit(title_surface, (
-        c.album_cover_size[0] + c.horizontal_padding, 
-        0)
-    )
-
-    # Artist name
-    artist_surface = secondary_font.render(c_s.artist, True, c.secondary_text_color)
-    screen.blit(artist_surface, (
-        c.album_cover_size[0] + c.horizontal_padding, 
-        c.main_font_size + c.line_padding
-    ))
-
-    # Album name
-    album_surface = tertiary_font.render(c_s.album, True, c.tertiary_text_color)
-    screen.blit(album_surface, (
-        c.album_cover_size[0] + c.horizontal_padding, 
-        c.secondary_font_size + c.line_padding) * 2
-    )
-
-    # Album cover
-    try:
-        screen.blit(album_image_surface, (0, 0))
-    except TypeError:
-        if c.output:
-            utils.log_output("Album cover failed to load and render")
-
-    # Position in song
-    position_surface = secondary_font.render(str(c_s.position) + " / " + str(c_s.length), True, c.secondary_text_color)
-    screen.blit(position_surface, (
-        c.album_cover_size[0] + c.horizontal_padding, 
-        c.secondary_font_size + c.line_padding * 3 + (c.line_padding / 2)
-    ))
 
 # Render centered mode
 def render_centered(screen, c_s): # c_s is current_song
