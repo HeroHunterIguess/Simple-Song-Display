@@ -6,8 +6,7 @@
 # Check if user is main pc or raspberry pi
 import os, subprocess, utils, config as c
 if "herohunter" not in str(subprocess.run("whoami", shell=True, capture_output=True, text=True)).strip():
-    if c.output:
-        utils.log_output("Running on raspberry pi.")
+    utils.log_output("Running on raspberry pi.")
     raspi = True
 else:
     raspi = False
@@ -51,23 +50,22 @@ def main():
 
     # Reset log file
     with open(c.log_file, "w") as f:
-        f.write(str(datetime.datetime.now()))
+        f.write(str(datetime.datetime.now())+"\n\n")
 
+    # Try to connect to host until it goes through
     while True:
-        # Try to connect to host
         try: 
             client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             client_socket.settimeout(2.0)
 
             client_socket.connect((host, port))
 
-            if c.output:
-                print("Connected to server", host, "at", port)
+            utils.log_output("Connected to server", host, "at", port)
             break
 
+        # Retry connection if it fails
         except OSError as err:
-            if c.output:
-                utils.log_output("Server not found. " + str(err))
+            utils.log_output("Server not found. " + str(err))
             sleep(5)
 
     try:
@@ -112,8 +110,7 @@ def main():
             elif c.mode == "Centered":
                 rendering.render_centered(screen, current_song)
             else:
-                if c.output:
-                    utils.log_output("No valid mode selected.")
+                utils.log_output("No valid mode selected.")
                 running = False
                 break
 
@@ -130,8 +127,7 @@ def main():
 
     # Close client
     except KeyboardInterrupt:
-        if c.output:
-            utils.log_output("Client closing")
+        utils.log_output("Client closing")
     
     client_socket.close()
 

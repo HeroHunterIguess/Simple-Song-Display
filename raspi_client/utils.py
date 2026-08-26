@@ -46,8 +46,7 @@ def format_time(seconds):
     try:
         seconds = int(float(seconds))
     except ValueError as err:
-        if c.output:
-            log_output("Error converting properly: " + str(err))
+        log_output("Error converting properly: " + str(err))
         seconds = int(seconds)
 
     minutes = seconds // 60;
@@ -63,10 +62,11 @@ def stop_cursor_blink(raspi):
     #        with open("/sys/class/graphics/fbcon/cursor_blink", "w") as f:
     #            f.write("0")
     #    except OSError as err:
-    #        if c.output:
-    #            log_output("Failed to disable blinking: " + str(err))
+    #        log_output("Failed to disable blinking: " + str(err))
 
 # Add message to log file
 def log_output(message):
-    with open(c.log_file, "a") as f:
-        f.write(message+"\n")
+    if c.output:
+        with open(c.log_file, "a") as f:
+            f.write(message+"\n")
+            print(message)

@@ -35,8 +35,7 @@ def render_standard(screen, c_s): # c_s is current_song
     try:
         screen.blit(album_image_surface, (0, 0))
     except TypeError:
-        if c.output:
-            utils.log_output("Album cover failed to load and render")
+        utils.log_output("Album cover failed to load and render")
 
     # Position in song
     position_surface = secondary_font.render(str(c_s.position) + " / " + str(c_s.length), True, c.secondary_text_color)

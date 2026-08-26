@@ -53,8 +53,7 @@ def render_centered(screen, c_s): # c_s is current_song
     try:
         response = requests.get(c_s.album_cover_image, timeout=2)
     except requests.exceptions.RequestException as err:
-        if c.output:
-            utils.log_output("Failed to get background image: " + str(err))
+        utils.log_output("Failed to get background image: " + str(err))
         return
 
     # Setup, darken, blur, and resize background
@@ -78,8 +77,7 @@ def render_centered(screen, c_s): # c_s is current_song
             c.album_cover_height
         ))
     except TypeError:
-        if c.output:
-            utils.log_output("Album cover failed to load and render")
+        utils.log_output("Album cover failed to load and render")
 
     # Song name
     title_surface = main_font.render(c_s.title, True, c.main_text_color)
@@ -128,8 +126,7 @@ def render_centered(screen, c_s): # c_s is current_song
             ))
 
         except (requests.exceptions.RequestException, pygame.error) as err:
-            if c.output:
-                utils.log_output("Failed to get or load pause icon: " + str(err))
+            utils.log_output("Failed to get or load pause icon: " + str(err))
 
 cached_no_media_background = None
 
@@ -146,8 +143,7 @@ def no_media(screen):
 
                 cached_no_media_background = background_image
             except requests.exceptions.RequestException as err:
-                if c.output:
-                    utils.log_output("Failed to get no-media background: " + str(err))
+                utils.log_output("Failed to get no-media background: " + str(err))
                 screen.fill(c.background_color) 
                 return
 
