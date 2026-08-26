@@ -60,7 +60,7 @@ def main():
 
             client_socket.connect((host, port))
 
-            utils.log_output("Connected to server", host, "at", port)
+            utils.log_output("Connected to server: " + host + " at " + str(port))
             break
 
         # Retry connection if it fails
