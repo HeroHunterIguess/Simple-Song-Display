@@ -42,7 +42,6 @@ def load_image(c_s):
     except requests.exceptions.RequestException as err:
         return cached_album_cover_surface
 
-
 # Render centered mode
 def render_centered(screen, c_s): # c_s is current_song
 

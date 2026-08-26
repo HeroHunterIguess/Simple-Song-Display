@@ -47,23 +47,30 @@ def main():
     host = "192.168.1.126"
     port = 7463
 
-    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client_socket.settimeout(2.0)
-
     utils.stop_cursor_blink(raspi)
 
     # Reset log file
     with open(c.log_file, "w") as f:
         f.write(str(datetime.datetime.now()))
 
-    try:
+    while True:
         # Try to connect to host
         try: 
+            client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            client_socket.settimeout(2.0)
+
             client_socket.connect((host, port))
+
+            if c.output:
+                print("Connected to server", host, "at", port)
+            break
+
         except OSError as err:
             if c.output:
                 utils.log_output("Server not found. " + str(err))
-            return
+            sleep(5)
+
+    try:
 
         # Begin main loop
         running = True
