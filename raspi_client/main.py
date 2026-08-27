@@ -54,7 +54,7 @@ def main():
     # Reset log file
     with open(c.log_file, "w") as f:
         f.write(str(datetime.datetime.now())+"\n\n")
-        utils.log_output("Initalizing/resetting log file.")
+        f.write("Initalizing/resetting log file.\n")
 
     # Try to connect to host until it goes through
     while True:
