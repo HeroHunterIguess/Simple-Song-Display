@@ -19,6 +19,7 @@ pygame.font.init()
 
 # Initialize screen
 if raspi:
+    utils.log_output("Initialized raspi screen surface.")
     screen = pygame.Surface(c.display_size)
 else:
     screen = pygame.display.set_mode(c.display_size)
@@ -46,14 +47,18 @@ def main():
     host = "192.168.1.126"
     port = 7463
 
+    utils.log_output("Attempting to stop cursor blink... may fail:")
     utils.stop_cursor_blink(raspi)
+    
 
     # Reset log file
     with open(c.log_file, "w") as f:
+        utils.log_output("Initalizing/resetting log file.")
         f.write(str(datetime.datetime.now())+"\n\n")
 
     # Try to connect to host until it goes through
     while True:
+        utils.log_output("Attemping to connect to " + host)
         try: 
             client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             client_socket.settimeout(2.0)
@@ -66,12 +71,14 @@ def main():
         # Retry connection if it fails
         except OSError as err:
             utils.log_output("Server not found. " + str(err))
-            sleep(5)
+            sleep(30)
 
     try:
 
         # Begin main loop
         running = True
+        utils.log_output("Beginning update loop...")
+
         while running:
             try:
                 data = client_socket.recv(1024).decode("utf-8")
@@ -87,12 +94,14 @@ def main():
             # External shutdown condition
             if raspi:
                 if os.path.exists("/home/hero/stop_display"):
+                    utils.log_output("Shutting down.")
                     running = False
 
             # Make window closeable w/ space on pc
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
+                        utils.log_output("Shutting down.")
                         running = False
             
             # Close instantly instead of finishing loop
@@ -121,9 +130,6 @@ def main():
                 rendering.convert_screen_format_and_draw(screen)
             else:
                 pygame.display.flip()
-
-            # Try to stop cursor blink
-            utils.stop_cursor_blink(raspi)
 
     # Close client
     except KeyboardInterrupt:
