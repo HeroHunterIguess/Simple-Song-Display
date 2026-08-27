@@ -133,7 +133,7 @@ def main():
 
     # Close client
     except KeyboardInterrupt:
-        utils.log_output("Client closing")
+        utils.log_output("Client closing from keyboard interrupt.")
     
     client_socket.close()
 

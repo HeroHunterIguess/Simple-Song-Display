@@ -18,6 +18,7 @@ def parse_info(data):
 
     # If it isnt real then make it empty
     if data == "":
+        log_output("Data is null - using blank data")
         current_song.title = ""
         current_song.artist = ""
         current_song.album_cover_image = ""
@@ -46,7 +47,7 @@ def format_time(seconds):
     try:
         seconds = int(float(seconds))
     except ValueError as err:
-        log_output("Error converting properly: " + str(err))
+        log_output("Error converting time units properly: " + str(err))
         seconds = int(seconds)
 
     minutes = seconds // 60;
