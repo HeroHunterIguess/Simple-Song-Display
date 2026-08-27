@@ -59,7 +59,7 @@ def format_time(seconds):
 def stop_cursor_blink(raspi):
     if raspi:
         try:
-            subprocess.run(["sudo", "tee", "/sys/class/graphics/fbcon/cursor_blink"], input="0".encode(), check=True, text=True)
+            subprocess.run(["sudo", "tee", "/sys/class/graphics/fbcon/cursor_blink"], input="0", check=True, text=True)
         except OSError as err:
             log_output("Failed to disable blinking: " + str(err))
     #if raspi:
