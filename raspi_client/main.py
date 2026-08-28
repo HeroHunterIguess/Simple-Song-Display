@@ -47,7 +47,7 @@ def main():
     host = "192.168.1.126"
     port = 7463
 
-    utils.log_output("Attempting to stop cursor blink... may fail:")
+    utils.log_output("Stopping cursor blink... ")
     utils.stop_cursor_blink(raspi)
     
 
@@ -65,7 +65,7 @@ def main():
 
             client_socket.connect((host, port))
 
-            utils.log_output("Connected to server: " + host + " at " + str(port))
+            utils.log_output("Connected to server: " + host + " at port " + str(port))
             break
 
         # Retry connection if it fails

@@ -23,6 +23,7 @@ def load_image(c_s):
 
     # Check if its not real
     if c_s.album_cover_image == "" or c_s.title == "null":
+        utils.log_output("No image to load.")
         return None
 
     # Try to load same as before 
