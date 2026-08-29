@@ -1,12 +1,22 @@
 # Simple Song Display
 
-A song display for Raspberry Pi streaming information from another computer
+![image](/showcase.png)
 
-## A lot of this code is very bad I know !!!!!!!!!!!!!
+## ⚠️ WARNING: THIS IS JUST MADE FOR MY PERSONAL USE
 
-# WARNING: THIS IS JUST MADE FOR PERSONAL USE FOR ME
+A song display for Raspberry Pi (or any Linux machine) which receives the song information from another computer and displays it.
+
+
 If you want to use this yourself - this code will need lots of modifications, and you will need multiple dependencies.
+
+The server end is meant to be ran as a systemd service running main.py, playerctl is required for the server.
+The Raspberry Pi client is made to specifically render directly on /dev/fb1 via the framebuffer.
+
+The information is transferred over a FTP socket - so the devices must be on the same network.
 
 In the future I may update this to have better versatility, but that currently does not matter to me as I am just using this for my own desktop music display.
 
-This is also kinda buggy and weird - there are a lot of unhandled cases...
+## Code status
+
+This code is generally suboptimal in many ways, and I am aware of this - however since this is only for my personal use it's fine.
+If you test this and want to suggest any improvements feel free to open a pull request.
