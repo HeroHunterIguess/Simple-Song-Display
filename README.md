@@ -1,6 +1,6 @@
 # Simple Song Display
 
-![image]([https://github.com/HeroHunterIguess/](https://github.com/HeroHunterIguess/Simple-Song-Display/blob/main/showcase.png))
+![image](/showcase.png)
 
 ## ⚠️ WARNING: THIS IS JUST MADE FOR MY PERSONAL USE
 
