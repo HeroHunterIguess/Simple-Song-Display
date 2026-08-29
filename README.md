@@ -12,6 +12,8 @@ If you want to use this yourself - this code will need lots of modifications, an
 The server end is meant to be ran as a systemd service running main.py, playerctl is required for the server.
 The Raspberry Pi client is made to specifically render directly on /dev/fb1 via the framebuffer.
 
+The information is transferred over a FTP socket - so the devices must be on the same network.
+
 In the future I may update this to have better versatility, but that currently does not matter to me as I am just using this for my own desktop music display.
 
 ## Code status
