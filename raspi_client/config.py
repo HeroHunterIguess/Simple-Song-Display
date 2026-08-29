@@ -68,7 +68,7 @@ output_transfer_info = False # Output the data recieved in each transfer
 
 truncation_length = 10 # UNUSED # Length of a line of text before its shortened 
 
-no_media_background_image_link = "https://raylees-void.neocities.org/background.png"
+no_media_background_image_link = "https://raylees-void.neocities.org/Cole_Thomas_The_Course_of_Empire_The_Arcadian_or_Pastoral_State_1836.jpg"
 no_media_message = "No media."
 
 pause_icon = "https://raylees-void.neocities.org/paused.png"
