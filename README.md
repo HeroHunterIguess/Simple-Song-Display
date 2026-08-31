@@ -38,6 +38,8 @@ The client first attempts to connect to a server on the set local IP, which by d
 
 Once connected to the server the client begins the main update loop where it retrieves the song data, and uses `pygame` to create a window and display song information. This display is fully customizable via the `config.py` file in the client code. 
 
+![image](/images/physical_display.jpg)
+
 **This display is configured to render directly onto the /dev/fb0 framebuffer of a screen using the LCD-Show driver.** I personally use the CUQI 3.5" Raspberry Pi screen from amazon. 
 
 If no song is currently playing, a no media screen is rendered instead of the music display. 
