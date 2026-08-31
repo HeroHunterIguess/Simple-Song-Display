@@ -48,3 +48,4 @@ If no song is currently playing, a no media screen is rendered instead of the mu
 - If the server is disconnected while the client is running, the client will freeze and not recover.
 - If the host of the album cover image takes too long to respond, sometimes the album cover will disappear for a single 0.4 second cycle. (This has an intended fix however I am unsure if this bug still exists)
 - Not all data transfers happen at the exact same time, so the position/time indicator may update slightly inconsistently.
+- The server can only handle a single client at a time - in the future it should be adapted to handle multiple... especially for testing while still connected on the external display.
