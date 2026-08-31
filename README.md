@@ -20,3 +20,9 @@ In the future I may update this to have better versatility, but that currently d
 
 This code is generally suboptimal in many ways, and I am aware of this - however since this is only for my personal use it's fine.
 If you test this and want to suggest any improvements feel free to open a pull request.
+
+## Features
+
+### Client
+
+### Server
