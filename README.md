@@ -1,6 +1,6 @@
 # Simple Song Display
 
-![image](/showcase.png)
+![image](/images/showcase.png)
 
 ## ⚠️ WARNING: THIS IS JUST MADE FOR MY PERSONAL USE
 
