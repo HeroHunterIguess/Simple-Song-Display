@@ -1,16 +1,18 @@
 # Simple Song Display
+100% human code, no LLM code.
+<small>That's why some of it is bad...</small>
 
 ![image](/images/showcase.png)
 
 ## ⚠️ WARNING: THIS IS JUST MADE FOR MY PERSONAL USE
 
-A song display for Raspberry Pi (or any Linux machine) which receives the song information from another computer and displays it.
+Simple Song Display is a song display for Raspberry Pi (or any Linux machine) which receives the song information from another computer and displays it.
 
 
 If you want to use this yourself - this code will need lots of modifications, and you will need multiple dependencies.
 
-Both ends are meant to run as a systemd service running main.py, and playerctl is required for the server.
-The Raspberry Pi client is made to specifically render directly on /dev/fb1 via the framebuffer.
+Both ends are meant to run as a systemd service running `main.py`, and `playerctl` is required for the server.
+The Raspberry Pi client is made to specifically render directly on `/dev/fb1` via the framebuffer.
 
 The information is transferred over a TCP socket - so the devices must be on the same network.
 
@@ -19,6 +21,8 @@ In the future I may update this to have better versatility, but that currently d
 ## Code status
 
 This code is generally suboptimal in many ways, and I am aware of this - however since this is only for my personal use, it's fine.
+I am also still not great at programming, but I'm always looking to improve!
+
 If you test this and want to suggest any improvements feel free to open a pull request.
 
 ## Features
