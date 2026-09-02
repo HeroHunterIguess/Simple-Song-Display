@@ -1,6 +1,5 @@
 # Simple Song Display
-100% human code, no LLM code.
-<small>That's why some of it is bad...</small>
+100% human code, no LLMs.
 
 ![image](/images/showcase.png)
 
