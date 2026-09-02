@@ -25,7 +25,7 @@ If you test this and want to suggest any improvements feel free to open a pull r
 
 ### Server:
 
-The server is hosted on a TCP socket on port 7463, where it transmits data to a singular client.
+The server hosts a TCP socket on port 7463, where it transmits data to a singular client.
 
 The server end uses `playerctl` to periodically get information (metadata, position, and if the song is paused) about the currently played song. 
 This data then is formatted and sent over a TCP socket. This loop completes every 0.4 seconds to continually update the available information for the client.
