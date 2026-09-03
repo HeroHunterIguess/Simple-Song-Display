@@ -5,13 +5,13 @@
 
 ## ⚠️ WARNING: THIS IS JUST MADE FOR MY PERSONAL USE
 
-Simple Song Display is a song display for Raspberry Pi (or any Linux machine) which receives the song information from another computer and displays it.
+Simple Song Display is a song display for a Raspberry Pi (or any* Linux machine) which receives the song information from another computer and displays it.
 
 
 If you want to use this yourself - this code will need lots of modifications, and you will need multiple dependencies.
 
 Both ends are meant to run as a systemd service running `main.py`, and `playerctl` is required for the server.
-The Raspberry Pi client is made to specifically render directly on `/dev/fb1` via the framebuffer.
+The client is made to specifically render directly on `/dev/fb1` via the framebuffer.
 
 The information is transferred over a TCP socket - so the devices must be on the same network.
 
@@ -28,7 +28,7 @@ If you test this and want to suggest any improvements feel free to open a pull r
 
 ### Server:
 
-The server hosts a TCP socket on port 7463, where it transmits data to a singular client.
+The server hosts a TCP socket on port 7463, where it transmits data to a singular client. Subsequent clients will be unable to connect to the server. 
 
 The server end uses `playerctl` to periodically get information (metadata, position, and if the song is paused) about the currently played song. 
 This data then is formatted and sent over a TCP socket. This loop completes every 0.4 seconds to continually update the available information for the client.
@@ -43,7 +43,7 @@ Once connected to the server the client begins the main update loop where it ret
 
 ![image](/images/physical_display.jpg)
 
-**This display is configured to render directly onto the /dev/fb1 framebuffer of a screen using the LCD-Show driver.** I personally use the CUQI 3.5" Raspberry Pi screen from amazon. 
+**This display is configured to render directly onto the `/dev/fb1` framebuffer of a screen using the LCD-Show driver.** I personally use the CUQI 3.5" Raspberry Pi screen from amazon. 
 
 If no song is currently playing, a no media screen is rendered instead of the music display. 
 
