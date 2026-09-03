@@ -54,3 +54,6 @@ If no song is currently playing, a no media screen is rendered instead of the mu
 - If the host of the album cover image takes too long to respond, sometimes the album cover will disappear for a single 0.4 second cycle. (This has an intended fix however I am unsure if this bug still exists)
 - Not all data transfers happen at the exact same time, so the position/time indicator may update slightly inconsistently.
 - The server can only handle a single client at a time - in the future it should be adapted to handle multiple... especially for testing while still connected on the external display.
+
+**If for some reason you use this program, and find more bugs that are not listed, please create a GitHub issue and I will do by best to fix it (as long as it is a universal issue and not a result of your setup)**
+If you find a fix for something, please create a pull request. 
