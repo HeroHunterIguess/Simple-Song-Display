@@ -43,7 +43,7 @@ Once connected to the server the client begins the main update loop where it ret
 
 ![image](/images/physical_display.jpg)
 
-**This display is configured to render directly onto the `/dev/fb1` framebuffer of a screen using the LCD-Show driver.** I personally use the CUQI 3.5" Raspberry Pi screen from amazon. 
+**This display is configured to render directly onto the `/dev/fb1` framebuffer of a screen** I personally use the CUQI 3.5" Raspberry Pi screen from amazon. My screen uses the LCD-Show driver, however I don't think this driver should affect the rendering of Simple Song Display.
 
 If no song is currently playing, a no media screen is rendered instead of the music display. 
 
