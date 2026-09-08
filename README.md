@@ -8,7 +8,7 @@
 Simple Song Display is a song display for a Raspberry Pi (or any* Linux machine) which receives the song information from another computer and displays it.
 
 
-If you want to use this yourself - this code will need lots of modifications, and you will need multiple dependencies.
+If you want to use this yourself - this code will need lots of modifications, and you will need multiple dependencies (python3, pygame, PIL).
 
 Both ends are meant to run as a systemd service running `main.py`, and `playerctl` is required for the server.
 The client is made to specifically render directly on `/dev/fb1` via the framebuffer.
