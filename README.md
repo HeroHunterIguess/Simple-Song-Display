@@ -32,7 +32,7 @@ The server hosts a TCP socket on port 7463, where it transmits data to a singula
 
 The server end uses `playerctl` to periodically get information (metadata, position, and if the song is paused) about the currently played song. 
 This data then is formatted and sent over a TCP socket. This loop completes every 0.4 seconds to continually update the available information for the client.
-Each loop completes 3 `playerctl` calls: metadata, status, and position. These calls all check the players: `subtui`, and `spotify`. You can change this in the code if you would like to use this.
+Each loop completes 3 `playerctl` calls: metadata, status, and position. These calls all check the players: `subtui`, and `spotify`. You can change this in the code if you would like to use this and want support for other players. 
 
 ### Client:
 
