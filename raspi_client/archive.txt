@@ -1,6 +1,6 @@
 ### Archived/unused functions ###
 
-# Render standard top left cornermode
+# Render standard top left cornermode # DEPRECIATED
 def render_standard(screen, c_s): # c_s is current_song
 
     # Format times

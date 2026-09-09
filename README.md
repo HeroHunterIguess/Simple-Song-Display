@@ -1,16 +1,17 @@
 # Simple Song Display
+100% human code, no LLMs.
 
-![image](/showcase.png)
+![image](/images/showcase.png)
 
 ## ⚠️ WARNING: THIS IS JUST MADE FOR MY PERSONAL USE
 
-A song display for Raspberry Pi (or any Linux machine) which receives the song information from another computer and displays it.
+Simple Song Display is a song display for a Raspberry Pi (or any* Linux machine) which receives the song information from another computer and displays it.
 
 
-If you want to use this yourself - this code will need lots of modifications, and you will need multiple dependencies.
+If you want to use this yourself - this code will need lots of modifications, and you will need multiple dependencies (python3, pygame, PIL).
 
-The server end is meant to be ran as a systemd service running main.py, playerctl is required for the server.
-The Raspberry Pi client is made to specifically render directly on /dev/fb1 via the framebuffer.
+Both ends are meant to run as a systemd service running `main.py`, and `playerctl` is required for the server.
+The client is made to specifically render directly on the `/dev/fb1` framebuffer.
 
 The information is transferred over a TCP socket - so the devices must be on the same network.
 
@@ -18,27 +19,31 @@ In the future I may update this to have better versatility, but that currently d
 
 ## Code status
 
-This code is generally suboptimal in many ways, and I am aware of this - however since this is only for my personal use it's fine.
+This code is generally suboptimal in many ways, and I am aware of this - however since this is only for my personal use, it's fine.
+I am also still not great at programming, but I'm always looking to improve!
+
 If you test this and want to suggest any improvements feel free to open a pull request.
 
 ## Features
 
 ### Server:
 
-The server is hosted on a TCP socket on port 7463, where it transmits data to a singular client.
+The server hosts a TCP socket on port 7463, where it transmits data to a singular client. Subsequent clients will be unable to connect to the server. 
 
 The server end uses `playerctl` to periodically get information (metadata, position, and if the song is paused) about the currently played song. 
 This data then is formatted and sent over a TCP socket. This loop completes every 0.4 seconds to continually update the available information for the client.
-Each loop completes 3 `playerctl` calls: metadata, status, and position. These calls all check the players: `subtui`, and `spotify`. You can change this in the code if you would like to use this.
+Each loop completes 3 `playerctl` calls: metadata, status, and position. These calls all check the players: `subtui`, and `spotify`. You can change this in the code if you would like to use this and want support for other players. 
 
 ### Client:
 
 The Client end of Simple Song Display is meant to be run on a Raspberry Pi or similar device with a small display. 
 The client first attempts to connect to a server on the set local IP, which by default is the local IP of my personal computer. This can be changed within `main.py` of the client code.
 
-Once connected to the server the client begins the main update loop where it retrieves the song data, and uses `pygame` to create a window and display song information. This display is fully customizable via the `config.py` file in the client code. 
+Once connected to the server the client begins the main update loop where it retrieves the song data, and uses `pygame` to create a window and display song information. This display is customizable via the `config.py` file in the client code. 
 
-**This display is configured to render directly onto the /dev/fb0 framebuffer of a screen using the LCD-Show driver.** I personally use the CUQI 3.5" Raspberry Pi screen from amazon. 
+![image](/images/physical_display.jpg)
+
+**This display is configured to render directly on to the `/dev/fb1` framebuffer.** I personally use the CUQI 3.5" Raspberry Pi screen from amazon. My screen uses the LCD-Show driver, however I don't think this driver should affect the rendering of Simple Song Display.
 
 If no song is currently playing, a no media screen is rendered instead of the music display. 
 
@@ -49,3 +54,7 @@ If no song is currently playing, a no media screen is rendered instead of the mu
 - If the host of the album cover image takes too long to respond, sometimes the album cover will disappear for a single 0.4 second cycle. (This has an intended fix however I am unsure if this bug still exists)
 - Not all data transfers happen at the exact same time, so the position/time indicator may update slightly inconsistently.
 - The server can only handle a single client at a time - in the future it should be adapted to handle multiple... especially for testing while still connected on the external display.
+- The program may have major issues or crash if an image in the config does not load (or is missing any values).
+
+**If for some reason you use this program, and find more bugs that are not listed, please create a GitHub issue and I will do by best to fix it (as long as it is a universal issue and not a result of your setup).**
+If you find a fix for something or have an improvement, please create a pull request. 
