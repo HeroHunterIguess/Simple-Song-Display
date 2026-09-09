@@ -32,3 +32,17 @@ def get_current_playing():
         if last_good_data is not None:
             return last_good_data
         return "", "", "", "", "", ""
+
+# Setup/format information to be sent
+def setup_current_info(is_playing):
+    title, artist, artURL, length, album, position = utils.get_current_playing()
+
+    final_info = title+"\n"
+    final_info += artist+"\n"
+    final_info += artURL+"\n"
+    final_info += str(length)+"\n"
+    final_info += str(is_playing)+"\n"
+    final_info += album+"\n"
+    final_info += str(position)+"\n"
+
+    return final_info
