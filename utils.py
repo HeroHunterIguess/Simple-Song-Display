@@ -35,7 +35,7 @@ def get_current_playing():
 
 # Setup/format information to be sent
 def setup_current_info(is_playing):
-    title, artist, artURL, length, album, position = utils.get_current_playing()
+    title, artist, artURL, length, album, position = get_current_playing()
 
     final_info = title+"\n"
     final_info += artist+"\n"
