@@ -71,7 +71,7 @@ def main():
         # Retry connection if it fails
         except OSError as err:
             utils.log_output("Server not found. " + str(err))
-            sleep(30)
+            time.sleep(30)
 
     try:
 
