@@ -23,7 +23,7 @@ def load_image(c_s):
 
     # Check if its not real
     if c_s.album_cover_image == "" or c_s.title == "null":
-        utils.log_output("No image to load.")
+        utils.log_output("Failed to load album cover: No image to load.")
         return None
 
     # Try to load same as before 
@@ -43,6 +43,32 @@ def load_image(c_s):
     except requests.exceptions.RequestException as err:
         return cached_album_cover_surface
 
+# Load and cache the blurred background
+cached_blurred_background_surface = None
+
+def load_blurred_background(c_s, response):
+    global cached_blurred_background_surface, cached_album_cover_link
+
+    # Check if its not real
+    if c_s.album_cover_image == "" or cached_album_cover_link == "null":
+        utils.log_output("Failed to load background: No image to load")
+        return None
+    
+    # load same as before if its cached 
+    if c_s.album_cover_image == cached_album_cover_link and cached_blurred_background_surface is not None:
+        return cached_blurred_background_surface
+    
+    try: 
+        background_image = Image.open(io.BytesIO(response.content))
+        background_image = background_image.filter(ImageFilter.GaussianBlur(radius=c.gaussian_blur_radius))
+        background_image = background_image.convert("RGB")
+        background_image = ImageEnhance.Brightness(background_image).enhance(c.background_brightness)
+        background = pygame.image.fromstring(background_image.tobytes(), background_image.size, background_image.mode)
+        background = pygame.transform.smoothscale(background, c.background_image_size)
+        return background
+    except requests.exceptions.RequestException as err:
+        return cached_blurred_background_surface
+
 # Render centered mode
 def render_centered(screen, c_s): # c_s is current_song
 
@@ -58,12 +84,7 @@ def render_centered(screen, c_s): # c_s is current_song
         return
 
     # Setup, darken, blur, and resize background
-    background_image = Image.open(io.BytesIO(response.content))
-    background_image = background_image.filter(ImageFilter.GaussianBlur(radius=c.gaussian_blur_radius))
-    background_image = background_image.convert("RGB")
-    background_image = ImageEnhance.Brightness(background_image).enhance(c.background_brightness)
-    background = pygame.image.fromstring(background_image.tobytes(), background_image.size, background_image.mode)
-    background = pygame.transform.smoothscale(background, c.background_image_size)
+    background = load_blurred_background(c_s, response)
 
     # Load standard album cover
     album_image_surface = load_image(c_s)
