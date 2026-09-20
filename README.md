@@ -47,6 +47,7 @@ If there is no server with the given IP available when the client starts, it wil
 Once connected to the server the client begins the main update loop where it retrieves the song data, and uses `pygame` to create a window and display song information. This display is customizable via the `config.py` file in the client code. This display can be stopped by creating a blank file named `stop_display` in the home directory. By default, this is only checking my specific home directory (`/home/hero`) - This will need to be changed within the code if you want to use this.
 
 ![image](/images/physical_display.jpg)
+My usage of simple song display on my desk ^^
 
 **This display is configured to render directly on to the `/dev/fb1` framebuffer.** I personally use the CUQI 3.5" Raspberry Pi screen from amazon. My screen uses the LCD-Show driver, however I don't think this driver should affect the rendering of Simple Song Display.
 
