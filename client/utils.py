@@ -62,12 +62,6 @@ def stop_cursor_blink(raspi):
             subprocess.run(["sudo", "tee", "/sys/class/graphics/fbcon/cursor_blink"], input="0", check=True, text=True)
         except OSError as err:
             log_output("Failed to disable blinking: " + str(err))
-    #if raspi:
-    #    try:
-    #        with open("/sys/class/graphics/fbcon/cursor_blink", "w") as f:
-    #            f.write("0")
-    #    except OSError as err:
-    #        log_output("Failed to disable blinking: " + str(err))
 
 # Add message to log file
 def log_output(message):

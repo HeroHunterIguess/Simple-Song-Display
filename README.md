@@ -39,7 +39,9 @@ Each loop completes 3 `playerctl` calls: metadata, status, and position. These c
 The Client end of Simple Song Display is meant to be run on a Raspberry Pi or similar device with a small display. 
 The client first attempts to connect to a server on the set local IP, which by default is the local IP of my personal computer. This can be changed within `main.py` of the client code.
 
-Once connected to the server the client begins the main update loop where it retrieves the song data, and uses `pygame` to create a window and display song information. This display is customizable via the `config.py` file in the client code. 
+If there is no server with the given IP available when the client starts, it will being a loop checking if the server is now running every 30 seconds until it connects. 
+
+Once connected to the server the client begins the main update loop where it retrieves the song data, and uses `pygame` to create a window and display song information. This display is customizable via the `config.py` file in the client code. This display can be stopped by creating a blank file named `stop_display` in the home directory. By default, this is only checking my specific home directory (`/home/hero`) - This will need to be changed within the code if you want to use this.
 
 ![image](/images/physical_display.jpg)
 
@@ -47,11 +49,13 @@ Once connected to the server the client begins the main update loop where it ret
 
 If no song is currently playing, a no media screen is rendered instead of the music display. 
 
+### Logging
+
+Simple Song Display features a simple logging system. All major client events or errors that occur will be printed to console, and logged to the `log_file` specified in `config.py`. This can be disabled in `config.py` as well. The server only has basic logging which is printed and not written to a file. 
+
 ## Bugs/issues
 
-- If the server is not running at the time the client starts, it will fail to start the client and will instead freeze and never connect to a server that comes online later.
 - If the server is disconnected while the client is running, the client will freeze and not recover.
-- If the host of the album cover image takes too long to respond, sometimes the album cover will disappear for a single 0.4 second cycle. (This has an intended fix however I am unsure if this bug still exists)
 - Not all data transfers happen at the exact same time, so the position/time indicator may update slightly inconsistently.
 - The server can only handle a single client at a time - in the future it should be adapted to handle multiple... especially for testing while still connected on the external display.
 - The program may have major issues or crash if an image in the config does not load (or is missing any variables).
