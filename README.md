@@ -17,6 +17,9 @@ The information is transferred over a TCP socket - so the devices must be on the
 
 In the future I may update this to have better versatility, but that currently does not matter to me as I am just using this for my own desktop music display.
 
+
+This readme file is primarily to explain this project and its capabilities (and downsides), however it also mentions some changes that would need to be made if you would like to try this.
+
 ## Code status
 
 This code is generally suboptimal in many ways, and I am aware of this - however since this is only for my personal use, it's fine.
@@ -52,6 +55,11 @@ If no song is currently playing, a no media screen is rendered instead of the mu
 ### Logging
 
 Simple Song Display features a simple logging system. All major client events or errors that occur will be printed to console, and logged to the `log_file` specified in `config.py`. This can be disabled in `config.py` as well. The server only has basic logging which is printed and not written to a file. 
+
+### Config file
+The client end for Simple Song Display features a configuration file called `config.py`. This file is part of the program and cannot be stored in another directory. 
+
+`config.py` features variables to control fonts,font sizes, padding values, heights of different elements, colors, as well as other values. The default config was made to look at normal and good as I could make it, but you can probably make it better (or worse). The config file also has several values which are unused - from either features that I removed, or things that are yet to be implimented. 
 
 ## Bugs/issues
 
