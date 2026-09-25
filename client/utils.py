@@ -27,6 +27,7 @@ def parse_info(data):
         current_song.album = ""
         current_song.position = ""
     else:
+        # If song is real
         # Split data into individual values
         buffer = io.StringIO(data)
         current_song.title = buffer.readline().strip()
