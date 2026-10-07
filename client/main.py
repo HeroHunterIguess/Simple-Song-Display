@@ -43,6 +43,8 @@ if os.path.exists("/home/hero/stop_display"):
     os.remove("/home/hero/stop_display")
 
 def main():
+    last_data = ""
+
     # Establish server connection
     host = "192.168.1.126"
     port = 7463
@@ -82,11 +84,12 @@ def main():
         while running:
             try:
                 data = client_socket.recv(1024).decode("utf-8")
+                last_data = data
             except socket.timeout:
                 continue
             
             if c.output_transfer_info:
-                utils.log_output("recieved data:\n" + str(data) + "\n")
+                utils.log_output("Recieved data:\n" + str(data) + "\n")
 
             # Get metadata about current song
             current_song = utils.parse_info(data)
