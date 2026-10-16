@@ -9,7 +9,7 @@
 #############################
 
 # Config will likely look bad on a different mode
-mode = "Centered" # Only option is 'Cenetered'
+mode = "Centered" # Only option is 'Centered'
 
 background_color = (30,30,30)
 
@@ -70,7 +70,9 @@ output_transfer_info = False # Output the data recieved in each transfer
 truncation_length = 10 # UNUSED # Length of a line of text before its shortened 
 
 no_media_background_image_link = "https://raylees-void.neocities.org/Cole_Thomas_The_Course_of_Empire_The_Arcadian_or_Pastoral_State_1836.jpg"
-no_media_message = "No media."
+
+no_media_clock = True # Show clock if no media is playing
+no_media_message = "No media." # Disregarded if no_media_clock is true
 
 pause_icon = "https://raylees-void.neocities.org/paused.png"
 paused_darkening = 140
