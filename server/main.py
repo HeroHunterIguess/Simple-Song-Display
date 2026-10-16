@@ -1,13 +1,12 @@
 ### Simple Song Server ###
-### Get currently playing song info and host it as server ###
-# Run in a systemd service called simple-song-server.service
+### This gets currently playing song info and sends it to a client ###
+# Run as a systemd service called simple-song-server.service
 
 
 import subprocess, time, socket, utils
 
-# Start Server 
 def main():
-    # Setup server
+    # Setup server vars
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     host = "0.0.0.0"
     port = 7463
@@ -21,23 +20,25 @@ def main():
     
     server_socket.listen(5)
 
-    print("server started on port: " + str(port))
+    print("Server started on port: " + str(port))
 
     # Info sending loop
     while True:
         try:
             # Accept client connecting
             client_socket, address = server_socket.accept()
-            print("connected to by address: " + str(address))
+            print("Connected to by address: " + str(address))
 
+            # Loop getting song info
             while True:
-                # Loop getting song info
+                
                 try:
+                    # Check is something is actively playing
                     status = subprocess.run(["playerctl", "--player=subtui,spotify", "status"], capture_output=True, text=True, timeout=1).stdout.strip()
                 except subprocess.TimeoutExpired:
                     status = ""
                 
-                # Check if song is playing or paused
+                # Assign variable based on if media is playing or paused
                 if status == "Paused":
                     is_playing = False
                 elif status == "Playing":
@@ -45,7 +46,7 @@ def main():
                 else: 
                     is_playing = False
 
-                # Send info to client
+                # Format song information
                 info = utils.setup_current_info(is_playing)
 
                 # Try to send data
