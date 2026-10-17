@@ -2,7 +2,7 @@
 
 
 # Imports and initalization
-import pygame, utils, requests, io, config as c 
+import pygame, utils, requests, io, datetime, config as c 
 from PIL import Image, ImageFilter, ImageEnhance
 pygame.font.init()
 
@@ -181,12 +181,25 @@ def no_media(screen):
     overlay_surface.fill((0,0,0))
     screen.blit(overlay_surface, (0,0))
 
-    # Draw text
-    info_surface = no_media_font.render(c.no_media_message, True, c.main_text_color)
-    screen.blit(info_surface, (
-        (c.display_size[0] / 2) - no_media_font.size(c.no_media_message)[0] / 2, 
-        (c.display_size[1] / 2) - (c.main_font_size * 2) / 2)
-    )
+    # Draw text (clock or no media message)
+    if c.no_media_clock:
+        # Get current time
+        current_time = datetime.datetime.now().strftime("%I:%M")
+        info_surface = no_media_font.render(current_time, True, c.main_text_color)
+        # Render on screen
+        screen.blit(info_surface, (
+            (c.display_size[0] / 2) - no_media_font.size(current_time)[0] / 2, 
+            (c.display_size[1] / 2) - (c.main_font_size * 2) / 2)
+        )
+    else:
+        info_surface = no_media_font.render(c.no_media_message, True, c.main_text_color)
+        # Render on screen
+        screen.blit(info_surface, (
+            (c.display_size[0] / 2) - no_media_font.size(c.no_media_message)[0] / 2, 
+            (c.display_size[1] / 2) - (c.main_font_size * 2) / 2)
+        )
+    
+    
 
 # Convert pygame surface into framebuffer
 def convert_screen_format_and_draw(screen):
