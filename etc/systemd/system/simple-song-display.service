@@ -1,0 +1,14 @@
+[Unit]
+Description=The client for Simple Song Display
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+WorkingDirectory=/home/hero/scripts/simple_song_display
+ExecStart=/usr/bin/python3 "/home/hero/scripts/simple_song_display/main.py"
+TimeoutStopSec=3
+User=hero
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

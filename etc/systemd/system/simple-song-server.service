@@ -1,0 +1,16 @@
+[Unit]
+Description=The server end for Simple Song Display
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+WorkingDirectory=/home/herohunter/Everything/Coding/python projects/Simple Song Display
+ExecStart=/usr/bin/python3 "/home/herohunter/Everything/Coding/python projects/Simple Song Display/server/main.py"
+User=herohunter
+Environment="XDG_RUNTIME_DIR=/run/user/1000"
+Environment="DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus"
+Restart=always
+RestartSec=1
+
+[Install]
+WantedBy=multi-user.target
