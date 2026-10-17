@@ -54,6 +54,9 @@ spacing_two = 233
 spacing_three = 264
 spacing_four = 290
 
+# Font size of clock = main font size * multiplier
+clock_size_multiplier = 4 
+
 
 #############################
 ### Debug                 ###
