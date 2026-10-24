@@ -97,12 +97,12 @@ sed -i \
 # Setup service
 echo "Moving service to correct directory."
 echo ""
-sudo mv "$SERVICE_SOURCE" /etc/systemd/system/simple-song-servertest.service
+sudo mv "$SERVICE_SOURCE" /etc/systemd/system/simple-song-server.service
 
 echo "Enabling service."
 echo ""
 sudo systemctl daemon-reload
-sudo systemctl enable --now simple-song-servertest.service
+sudo systemctl enable --now simple-song-server.service
 
 echo "Service should be enabled..."
 
