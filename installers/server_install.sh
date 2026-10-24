@@ -80,6 +80,9 @@ touch reference.py
     echo 'source_two = "'$SOURCE_TWO'"'
 } > reference.py
 
+cd $INSTALL_DIR
+rm -rf Simple-Song-Display
+
 
 ### Setup service ###
 echo ""
@@ -108,4 +111,4 @@ sudo systemctl enable --now simple-song-servertest.service
 
 echo "Service should be enabled..."
 echo ""
-
+echo "Installation complete."
