@@ -55,13 +55,11 @@ cd server
 ### Configure players ###
 echo ""
 echo "###########################################"
-echo ""
 echo "You can now select up to two sources for Simple Song Display."
 echo ""
 echo "Simple Song Server will send the song playing on either of these players to the client."
 echo ""
 echo "If you only want to set one player, then it does not matter what you type in the other source."
-echo ""
 echo "###########################################"
 echo ""
 
@@ -79,9 +77,6 @@ touch reference.py
     echo 'source_one = "'$SOURCE_ONE'"'
     echo 'source_two = "'$SOURCE_TWO'"'
 } > reference.py
-
-cd $INSTALL_DIR
-rm -rf Simple-Song-Display
 
 
 ### Setup service ###
@@ -110,5 +105,15 @@ sudo systemctl daemon-reload
 sudo systemctl enable --now simple-song-servertest.service
 
 echo "Service should be enabled..."
+
+# Remove extra files
 echo ""
-echo "Installation complete."
+echo "Cleaning up..."
+
+cd $INSTALL_DIR
+rm -rf Simple-Song-Display
+
+echo ""
+echo "######################"
+echo "Installation complete!"
+echo "######################"
