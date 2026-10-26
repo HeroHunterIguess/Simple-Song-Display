@@ -34,7 +34,7 @@ def main():
                 
                 try:
                     # Check is something is actively playing (Based on chosen player sources)
-                    status = subprocess.run(["playerctl", f"--player={reference.source_one},{reference.subtui}", "status"], capture_output=True, text=True, timeout=1).stdout.strip()
+                    status = subprocess.run(["playerctl", f"--player={reference.source_one},{reference.source_two}", "status"], capture_output=True, text=True, timeout=1).stdout.strip()
                 except subprocess.TimeoutExpired:
                     status = ""
                 

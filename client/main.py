@@ -1,15 +1,18 @@
 ### Simple Song Display ###
 # Display client
-# This client runs from a systemctl service on the raspi
+# This client runs from a systemctl service 
 
 
 # Check if user is main pc or raspberry pi
-import os, subprocess, utils, config as c
-if "herohunter" not in str(subprocess.run("whoami", shell=True, capture_output=True, text=True)).strip():
+import os, subprocess, utils, reference, config as c
+
+username = str(subprocess.run("whoami", shell=True, capture_output=True, text=True).stdout.strip())
+
+if c.display_mode == "DirectDraw":
     utils.log_output("Running on raspberry pi.")
-    raspi = True
+    direct = True
 else:
-    raspi = False
+    direct = False
 
 # Setup and initialization
 import pygame, time, socket, requests, io, rendering, song_data, datetime
@@ -18,8 +21,8 @@ pygame.display.init()
 pygame.font.init()
 
 # Initialize screen
-if raspi:
-    utils.log_output("Initialized raspi screen surface.")
+if direct:
+    utils.log_output("Initialized direct screen surface.")
     screen = pygame.Surface(c.display_size)
 else:
     screen = pygame.display.set_mode(c.display_size)
@@ -39,24 +42,27 @@ current_song = song_data.song(
 )
 
 # Remove external stop condition file
-if os.path.exists("/home/hero/stop_display"):
-    os.remove("/home/hero/stop_display")
+if os.path.exists(f"/home/{username}/stop_display"):
+    os.remove(f"/home/{username}/stop_display")
 
 def main():
     last_data = ""
 
     # Establish server connection
-    host = "192.168.1.126"
+    # host = "192.168.1.126"
+    host = socket.gethostbyname(reference.server_hostname)
+
     port = 7463
 
     utils.log_output("Stopping cursor blink... ")
-    utils.stop_cursor_blink(raspi)
+    utils.stop_cursor_blink(direct)
     
 
     # Reset log file
-    with open(c.log_file, "w") as f:
-        f.write(str(datetime.datetime.now())+"\n\n")
-        f.write("Initalizing/resetting log file.\n")
+    if c.output:
+        with open(c.log_file, "w") as f:
+            f.write(str(datetime.datetime.now())+"\n\n")
+            f.write("Initalizing/resetting log file.\n")
 
     # Try to connect to host until it goes through
     while True:
@@ -95,8 +101,8 @@ def main():
             current_song = utils.parse_info(data)
 
             # External shutdown condition
-            if raspi:
-                if os.path.exists("/home/hero/stop_display"):
+            if direct:
+                if os.path.exists(f"/home/{username}/stop_display"):
                     utils.log_output("Shutting down.")
                     running = False
 
@@ -129,7 +135,7 @@ def main():
             time.sleep(0.4)
 
             # Convert rendered surface to framebuffer and draw
-            if raspi:
+            if direct:
                 rendering.convert_screen_format_and_draw(screen)
             else:
                 pygame.display.flip()

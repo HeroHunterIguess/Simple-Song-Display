@@ -8,8 +8,11 @@ echo "###########################################"
 echo "Welcome to the Simple Song Server Installer"
 echo "###########################################"
 echo ""
-echo "This will install all dependencies, and setup a systemd service for simple song display."
+echo "This will install all dependencies, and have the option to setup a systemd service for simple song display."
 echo "You will be prompted for the sudo password."
+echo ""
+echo "This installer requires the pacman package manager for dependencies."
+echo "The rest of the installer will work without, but for the dependencies you must be on a distro with pacman"
 echo ""
 echo "###########################################"
 echo ""
@@ -47,6 +50,9 @@ rm -rf client images .git
 rm -f .gitignore
 
 # Move server folder
+echo "Setting up folders..."
+echo ""
+
 cd "$INSTALL_DIR"
 mv Simple-Song-Display/server server
 cd server
