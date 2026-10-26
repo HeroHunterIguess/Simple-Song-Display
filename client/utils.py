@@ -66,7 +66,7 @@ def stop_cursor_blink(raspi):
 
 # Add message to log file
 def log_output(message):
-    with open(c.log_file, "a") as f:
-        f.write(message+"\n")
-        if c.output:
+    if c.output:
+        with open(c.log_file, "a") as f:
+            f.write(message+"\n")
             print(message)

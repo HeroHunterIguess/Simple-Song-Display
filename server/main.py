@@ -3,7 +3,7 @@
 # Run as a systemd service called simple-song-server.service
 
 
-import subprocess, time, socket, utils
+import subprocess, time, socket, utils, reference
 
 def main():
     # Setup server vars
@@ -33,8 +33,8 @@ def main():
             while True:
                 
                 try:
-                    # Check is something is actively playing
-                    status = subprocess.run(["playerctl", "--player=subtui,spotify", "status"], capture_output=True, text=True, timeout=1).stdout.strip()
+                    # Check is something is actively playing (Based on chosen player sources)
+                    status = subprocess.run(["playerctl", f"--player={reference.source_one},{reference.source_two}", "status"], capture_output=True, text=True, timeout=1).stdout.strip()
                 except subprocess.TimeoutExpired:
                     status = ""
                 
