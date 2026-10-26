@@ -3,14 +3,10 @@
 
 ![image](/images/showcase.png)
 
-## ⚠️ WARNING: THIS MAY BE BUGGY FOR OTHERS
 
-Simple Song Display is a song display for a Raspberry Pi (or any* Linux machine that uses pacman) which receives the song information from another computer and displays it.
-
+Simple Song Display is a song display for a Raspberry Pi (or any* Linux machine) which receives the song information from another computer and displays it.
 
 The information is transferred over a TCP socket - so the devices must be on the same network.
-
-In the future I may update this to have better versatility, but that currently does not matter to me as I am just using this for my own desktop music display.
 
 ## Code status
 
@@ -20,6 +16,16 @@ I am also still not great at programming, but I'm always looking to improve!
 If you test this and want to suggest any improvements feel free to open a pull request.
 
 ## Features
+
+### Installers:
+
+There are two installer scripts: `client_install.sh` and `server_install.sh`. The server installer should be run on the computer on which you want it to check what you're listening to, it will send that information to the client to display it. These installers are made to use `pacman` to install dependencies. If you are on a distro that does not have pacman, you can still use the installers as long as you have `git` installed and you manually download the rest of the dependencies.
+
+The server requires: `python`, and `playerctl`
+
+The client requires: `python`, and the following python libraries: `python-pygame`, `python-pillow`, and `python-requests`.
+
+The client installer will require the username of the computer that runs the server script, so that it can connect. 
 
 ### Server:
 
