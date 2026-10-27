@@ -8,6 +8,12 @@
 ### Appearance            ###
 #############################
 
+# Options are: "Windowed" or "DirectDraw"
+display_mode = "Windowed"
+# DirectDraw will draw to the following framebuffer 
+# Default is /dev/fb1
+frame_buffer = "1"
+
 # Config will likely look bad on a different mode
 mode = "Centered" # Only option is 'Centered'
 
@@ -62,7 +68,7 @@ clock_size_multiplier = 4
 ### Debug                 ###
 #############################
 
-output = True # General output messages
+output = False # General output/logging messages
 output_transfer_info = False # Output the data recieved in each transfer
 
 
@@ -80,5 +86,4 @@ no_media_message = "No media." # Disregarded if no_media_clock is true
 pause_icon = "https://raylees-void.neocities.org/paused.png"
 paused_darkening = 140
 
-log_file = "/home/herohunter/Everything/simple_song_display_log.txt"
-#log_file = "/home/hero/logs/simple_song_display/log.txt"
+#log_file = "/home/herohunter/Everything/simple_song_display_log.txt"
