@@ -23,7 +23,7 @@ There are two installer scripts: `client_install.sh` and `server_install.sh`. Th
 
 The server requires: `python`, and `playerctl`
 
-The client requires: `python`, and the following python libraries: `python-pygame`, `python-pillow`, and `python-requests`.
+The client requires: `python`, and the following python libraries: `pygame`, `pillow`, and `requests`.
 
 The client installer will require the username of the computer that runs the server script, so that it can connect. 
 
