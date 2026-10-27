@@ -8,11 +8,12 @@ echo "###########################################"
 echo "Welcome to the Simple Song Server Installer"
 echo "###########################################"
 echo ""
-echo "This will install all dependencies, and have the option to setup a systemd service for simple song display."
+echo "This will install all dependencies, and have the option to setup a systemd service for Simple Song Display."
 echo "You will be prompted for the sudo password."
 echo ""
 echo "This installer requires the pacman package manager for dependencies."
 echo "The rest of the installer will work without, but for the dependencies you must be on a distro with pacman"
+echo "If you need to find the dependency list, it is in README.md on the github repo"
 echo ""
 echo "###########################################"
 echo ""
@@ -40,7 +41,6 @@ echo "Cloning Simple Song Server code from github"
 echo "###########################################"
 echo ""
 
-
 # Clone server code from GitHub
 git clone https://github.com/HeroHunterIguess/Simple-Song-Display/
 cd Simple-Song-Display
@@ -62,6 +62,7 @@ cd server
 echo ""
 echo "###########################################"
 echo "You can now select up to two sources for Simple Song Display."
+echo "ex: spotify"
 echo ""
 echo "Simple Song Server will send the song playing on either of these players to the client."
 echo ""
@@ -111,15 +112,17 @@ sudo systemctl daemon-reload
 sudo systemctl enable --now simple-song-server.service
 
 echo "Service should be enabled..."
+echo ""
 
 # Remove extra files
-echo ""
 echo "Cleaning up..."
 
 cd $INSTALL_DIR
 rm -rf Simple-Song-Display
 
+
 echo ""
 echo "######################"
 echo "Installation complete!"
 echo "######################"
+echo ""

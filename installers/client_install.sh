@@ -13,15 +13,16 @@ echo "You will be prompted for the sudo password."
 echo ""
 echo "This installer requires the pacman package manager for dependencies."
 echo "The rest of the installer will work without, but for the dependencies you must be on a distro with pacman"
+echo "If you need to find the dependency list, it is in README.md on the github repo"
 echo ""
 echo "############################################"
 echo ""
 
 read -p "Press enter to start the installer"
 
+
 # Install dependencies
 sudo pacman -S --needed --noconfirm python python-pygame python-pillow python-requests git
-
 
 # Setup installation paths
 INSTALL_DIR="$HOME/simple_song_display"
@@ -76,10 +77,10 @@ read -r -p "Host name: " HOST
 
 echo ""
 echo "Created reference file."
-echo ""
 
 
 # Setup systemd service
+echo ""
 echo "############################################"
 echo "Would you like Simple Song Display to auto start?"
 echo ""
@@ -92,6 +93,7 @@ echo ""
 
 if [ $SERVICE == "y" ]; then
     # Update service file
+    echo "Updating service file."
     sed -i \
         -e "s|/home/hero/scripts/simple_song_display|$INSTALL_DIR/client|" \
         -e "s|/home/hero/scripts/simple_song_display/main.py|$INSTALL_DIR/client/main.py|" \
@@ -110,6 +112,7 @@ echo "Cleaning up..."
 
 cd $INSTALL_DIR
 rm -rf Simple-Song-Display
+
 
 echo ""
 echo "######################"
