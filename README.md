@@ -42,12 +42,12 @@ The client first attempts to connect to a server with the set host name.
 
 If there is no server with the given IP available when the client starts, it will being a loop checking if the server is now running every 30 seconds until it connects. 
 
-Once connected to the server the client begins the main update loop where it retrieves the song data, and uses `pygame` to create a window and display song information. This display is customizable via the `config.py` file in the client code. This display can be stopped by creating a blank file named `stop_display` in the home directory. 
+Once connected to the server the client begins the main update loop where it retrieves the song data, and uses `pygame` to create a window and display song information. This display is customizable via the `config.py` file in the client code. This display can be stopped by creating a blank file named `stop_display` in the home directory (if the display is in DirectDraw mode). 
 
 ![image](/images/physical_display.jpg)
 My usage of Simple Song Display on my desk ^^
 
-**This display is configured to either render directly on to the `/dev/fb1` framebuffer or to create a window based on `display_mode` in `config.py`.** I personally use the CUQI 3.5" Raspberry Pi screen from amazon. My screen uses the LCD-Show driver, however I don't think this driver should affect the rendering of Simple Song Display when rendering directly onto the framebuffer.
+**This display is configured to either render directly on to the `/dev/fb1` framebuffer or to create a window based on `display_mode` in `config.py`.** I personally use the CUQI 3.5" Raspberry Pi screen from Amazon with the program directly drawing onto the framebuffer. My screen uses the LCD-Show driver, however I don't think this driver should affect the rendering of Simple Song Display when rendering directly onto the framebuffer.
 
 If no song is currently playing, a clock (or no media screen) is rendered instead of the music display. You can enable/disable the clock in `config.py`.
 
