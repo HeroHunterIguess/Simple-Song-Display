@@ -1,6 +1,6 @@
 ### Simple Song Display ###
 # Display client
-# This client runs from a systemctl service 
+# This client would be run from a systemd service 
 
 
 # Check if user is main pc or raspberry pi
