@@ -10,10 +10,10 @@ The information is transferred over a TCP socket - so the devices must be on the
 
 ## Code status
 
-This code is generally suboptimal in many ways, and I am aware of this - however since this is only for my personal use, it's fine.
+This code may be suboptimal in several ways, and I am aware of this - however since this is primarily for my personal use, it's fine.
 I am also still not great at programming, but I'm always looking to improve!
 
-If you test this and want to suggest any improvements feel free to open a pull request.
+If you test this and want to suggest any improvements feel free to open a pull request or issue.
 
 ## Features
 
