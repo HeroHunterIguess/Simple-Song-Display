@@ -1,7 +1,7 @@
 ### Get info of currently playing media ###
 
 
-import subprocess
+import subprocess, reference
 
 last_good_data = None
 
