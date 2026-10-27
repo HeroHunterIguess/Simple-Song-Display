@@ -24,8 +24,9 @@ if raspi:
 else:
     screen = pygame.display.set_mode(c.display_size)
 
-# Hide mouse cursor
-pygame.mouse.set_visible(False)
+# Set window title
+if not direct:
+    pygame.display.set_caption("Simple Song Display")
 
 # Initialize current song
 current_song = song_data.song(
@@ -106,6 +107,9 @@ def main():
                     if event.key == pygame.K_SPACE:
                         utils.log_output("Shutting down.")
                         running = False
+                # Close with quit/x
+                if event.type == pygame.QUIT:
+                    running = False
             
             # Close instantly instead of finishing loop
             if running == False:
