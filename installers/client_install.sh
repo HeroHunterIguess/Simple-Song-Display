@@ -42,11 +42,6 @@ echo ""
 
 # Clone server code from GitHub
 git clone https://github.com/HeroHunterIguess/Simple-Song-Display/
-cd Simple-Song-Display
-
-# Remove unecessary files
-rm -rf server images .git 
-rm -f .gitignore
 
 # Move client folder
 cd "$INSTALL_DIR"
@@ -56,9 +51,14 @@ echo ""
 
 mv Simple-Song-Display/client client
 cd client
-rm -f archive.txt
+
+# Move icon to correct place
+cd "$INSTALL_DIR"
+mv Simple-Song-Display/images/Simple_Song_Display_icon.png client/Simple_Song_Display_icon.png 
+cd client
 
 touch reference.py
+
 
 echo ""
 echo "############################################"
