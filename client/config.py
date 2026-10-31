@@ -1,4 +1,4 @@
-# Simple Song Display configuration
+### Simple Song Display configuration ###
 # Default config
 # Do not remove any values
 # Some of these may be unused with the 'Centered' mode.
