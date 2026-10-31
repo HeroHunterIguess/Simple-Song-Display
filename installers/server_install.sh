@@ -27,7 +27,7 @@ sudo pacman -S --needed --noconfirm python playerctl git
 
 
 # Setup installation paths
-INSTALL_DIR="$HOME/simple_song_server"
+INSTALL_DIR="$HOME/simple_song_display"
 SERVICE_SOURCE="$INSTALL_DIR/Simple-Song-Display/etc/systemd/system/simple-song-server.service"
 
 # Create folder
