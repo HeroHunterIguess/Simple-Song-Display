@@ -27,6 +27,8 @@ The client requires: `python`, and the following python libraries: `pygame`, `pi
 
 The client installer will require the username of the computer that runs the server script, so that it can connect. 
 
+Both the client and server install into `~/simple_song_display`.
+
 ### Server:
 
 The server hosts a TCP socket on port 7463, where it transmits data to a singular client. Subsequent clients will be unable to connect to the server. 
