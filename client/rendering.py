@@ -18,6 +18,7 @@ clock_font = pygame.font.SysFont(c.main_font, c.main_font_size * c.clock_size_mu
 cached_album_cover_surface = None
 cached_album_cover_link = None
 
+
 # Loads image with given url
 def load_image(c_s): 
     global cached_album_cover_surface, cached_album_cover_link
@@ -55,10 +56,11 @@ def load_blurred_background(c_s, response):
         utils.log_output("Failed to load background: No image to load")
         return None
     
-    # load same as before if its cached 
+    # Load same as before if its cached 
     if c_s.album_cover_image == cached_album_cover_link and cached_blurred_background_surface is not None:
         return cached_blurred_background_surface
     
+    # Load new album cover image, and format/set it up
     try: 
         background_image = Image.open(io.BytesIO(response.content))
         background_image = background_image.filter(ImageFilter.GaussianBlur(radius=c.gaussian_blur_radius))
@@ -69,6 +71,7 @@ def load_blurred_background(c_s, response):
         return background
     except requests.exceptions.RequestException as err:
         return cached_blurred_background_surface
+
 
 # Render centered mode
 def render_centered(screen, c_s): # c_s is current_song
@@ -100,7 +103,7 @@ def render_centered(screen, c_s): # c_s is current_song
             c.album_cover_height
         ))
     except TypeError:
-        utils.log_output("Album cover failed to load and render")
+        utils.log_output("Album cover failed to load/render")
 
     # Song name
     title_surface = main_font.render(c_s.title, True, c.main_text_color)
@@ -137,6 +140,7 @@ def render_centered(screen, c_s): # c_s is current_song
         overlay_surface.fill((0,0,0))
         screen.blit(overlay_surface, (0,0))
 
+        # Try to get and display pause icon
         try:
             response = requests.get(c.pause_icon, timeout=2)
 
@@ -153,9 +157,10 @@ def render_centered(screen, c_s): # c_s is current_song
 
 cached_no_media_background = None
 
-# Empty screen if no media is playing
+# No media screen if no media is playing
 def no_media(screen):
     global cached_no_media_background
+
     # Load background if there is one
     if c.no_media_background_image_link != "":
         if cached_no_media_background is None:
@@ -177,6 +182,7 @@ def no_media(screen):
     else:
         screen.fill(c.background_color)
     
+    # Darken background image
     overlay_surface = pygame.Surface(c.display_size)
     overlay_surface.set_alpha(c.paused_darkening)
     overlay_surface.fill((0,0,0))
@@ -184,6 +190,7 @@ def no_media(screen):
 
     # Draw text (clock or no media message)
     if c.no_media_clock:
+        
         # Get current time
         current_time = datetime.datetime.now().strftime("%I:%M")
         clock_surface = clock_font.render(current_time, True, c.main_text_color)

@@ -1,13 +1,14 @@
 ### Simple Song Display ###
 # Display client
-# This client would be run from a systemd service 
 
 
-# Check if user is main pc or raspberry pi
+# Initial imports
 import os, subprocess, utils, reference, config as c
 
+# Get username 
 username = str(subprocess.run("whoami", shell=True, capture_output=True, text=True).stdout.strip())
 
+# Setup stuff based on display mode
 if c.display_mode == "DirectDraw":
     utils.log_output("Running on raspberry pi.")
     direct = True
@@ -46,19 +47,18 @@ current_song = song_data.song(
 if os.path.exists(f"/home/{username}/stop_display"):
     os.remove(f"/home/{username}/stop_display")
 
-def main():
-    last_data = ""
 
+def main():
     # Establish server connection
-    # host = "192.168.1.126"
     host = socket.gethostbyname(reference.server_hostname)
 
     port = 7463
 
-    utils.log_output("Stopping cursor blink... ")
-    utils.stop_cursor_blink(direct)
+    # Attempt to stop blinking console cursor
+    if direct:
+        utils.log_output("Stopping cursor blink... ")
+        utils.stop_cursor_blink(direct)
     
-
     # Reset log file
     if c.output:
         with open(c.log_file, "w") as f:
@@ -82,30 +82,29 @@ def main():
             utils.log_output("Server not found. " + str(err))
             time.sleep(30)
 
-    try:
 
+    try:
         # Begin main loop
         running = True
         utils.log_output("Beginning update loop...")
 
         while running:
             try:
+                # Recieve data
                 data = client_socket.recv(1024).decode("utf-8")
-                last_data = data
             except socket.timeout:
                 continue
             
             if c.output_transfer_info:
                 utils.log_output("Recieved data:\n" + str(data) + "\n")
 
-            # Get metadata about current song
+            # Parse metadata about current song
             current_song = utils.parse_info(data)
 
             # External shutdown condition
-            if direct:
-                if os.path.exists(f"/home/{username}/stop_display"):
-                    utils.log_output("Shutting down.")
-                    running = False
+            if os.path.exists(f"/home/{username}/stop_display"):
+                utils.log_output("Shutting down.")
+                running = False
 
             # Make window closeable w/ space on pc
             for event in pygame.event.get():
@@ -126,9 +125,6 @@ def main():
 
             if current_song.title == "null" or current_song.album_cover_image == "" or current_song.title == "":
                 rendering.no_media(screen)
-            elif c.mode == "Standard":
-                # General song information
-                rendering.render_standard(screen, current_song)
             elif c.mode == "Centered":
                 rendering.render_centered(screen, current_song)
             else:

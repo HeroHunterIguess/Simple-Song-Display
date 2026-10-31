@@ -51,12 +51,13 @@ def format_time(seconds):
         log_output("Error converting time units properly: " + str(err))
         seconds = int(seconds)
 
+    # Convert/format
     minutes = seconds // 60;
     remaining_seconds = seconds % 60;
 
     return f"{minutes}:{remaining_seconds:02d}";
 
-# Try multiple ways to hide blinking cursor in console
+# Try to hide blinking cursor in console
 def stop_cursor_blink(raspi):
     if raspi:
         try:

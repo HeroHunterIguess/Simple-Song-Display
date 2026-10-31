@@ -25,6 +25,7 @@ def get_current_playing():
         # Save and return good data
         last_good_data = (title, artist, artURL, length, album, position)
         return last_good_data
+        
     # Return last good data if subprocess times out
     except subprocess.TimeoutExpired:
         print("Playerctl timeout, using last known good data")

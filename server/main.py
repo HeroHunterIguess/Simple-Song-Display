@@ -1,6 +1,5 @@
 ### Simple Song Server ###
 ### This gets currently playing song info and sends it to a client ###
-# Run as a systemd service called simple-song-server.service
 
 
 import subprocess, time, socket, utils, reference
