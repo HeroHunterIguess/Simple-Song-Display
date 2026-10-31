@@ -32,6 +32,10 @@ else:
 if not direct:
     pygame.display.set_caption("Simple Song Display")
 
+# Load icon
+ssd_icon = pygame.image.load("Simple_Song_Display_icon.png")
+pygame.display.set_icon(ssd_icon)
+
 # Initialize current song
 current_song = song_data.song(
     title = "",
