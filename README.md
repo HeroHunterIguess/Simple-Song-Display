@@ -1,7 +1,7 @@
 # Simple Song Display
 100% human code, no LLMs.
 
-![image](/images/showcase_image.png)
+![image](/images/showcase_image.png) ![logo](/images/Simple_Song_Display_icon.png)
 
 
 Simple Song Display is a song display for a Raspberry Pi (or any* Linux machine) which receives the song information from another computer and displays it.
