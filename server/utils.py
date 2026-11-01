@@ -11,12 +11,14 @@ def get_current_playing():
     try:
         # Get position and song metadata
         position = subprocess.run(["playerctl", f"--player={reference.source_one},{reference.source_two}", "position"], capture_output=True, text=True, timeout=1).stdout.strip() 
-        metadata = subprocess.run(["playerctl", f"--player={reference.source_one},{reference.source_two}", "metadata", "--format", "{{title}}\t{{artist}}\t{{mpris:artUrl}}\t{{mpris:length}}\t{{album}}"], capture_output=True, text=True, timeout=1).stdout.strip()
+        metadata = subprocess.run(["playerctl", f"--player={reference.source_one},{reference.source_two}", "metadata", "--format", "{{title}}\t{{artist}}\t{{mpris:artUrl}}\t{{mpris:length}}"], capture_output=True, text=True, timeout=1).stdout.strip()
+        album = "" # Seperately define album in case there isnt one specified:
+        album = subprocess.run(["playerctl", f"--player={reference.source_one},{reference.source_two}", "metadata", "--format", "{{album}}"], capture_output=True, text=True, timeout=1).stdout.strip() 
 
         if metadata == "":
             title, artist, artURL, length, album = "", "", "", "", ""
         else:
-            title, artist, artURL, length, album = metadata.split("\t")
+            title, artist, artURL, length = metadata.split("\t")
 
         # Convert length to seconds
         if length != "":
