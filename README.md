@@ -13,7 +13,9 @@ The information is transferred over a TCP socket - so the devices must be on the
 This code may be suboptimal in several ways, and I am aware of this - however since this is primarily for my personal use, it's fine.
 I am also still not great at programming, but I'm always looking to improve!
 
-If you test this and want to suggest any improvements feel free to open a pull request or issue.
+Minimal testing has been done on computers other than mine. Certain music players may also cause issues. 
+
+If you find issues please create an issue, and if it is a crash include the output of `journalctl -u simple-song-server.service -n 50` as well as `journalctl -u simple-song-display.service -n 50` if the issue involves the client. 
 
 ## Features
 
