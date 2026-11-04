@@ -48,6 +48,10 @@ If there is no server with the given IP available when the client starts, it wil
 
 Once connected to the server the client begins the main update loop where it retrieves the song data, and uses `pygame` to create a window and display song information. This display is customizable via the `config.py` file in the client code. This display can be stopped by creating a blank file named `stop_display` in the home directory (if the display is in DirectDraw mode). 
 
+### Uninstaller
+
+`uninstall.sh` can be used to remove the program files, as well as the systemd services. This script can be run on both the server and client, and will uninstall either one. 
+
 ![image](/images/physical_display.jpg)
 My usage of Simple Song Display on my desk ^^
 
