@@ -20,24 +20,24 @@ cached_album_cover_link = None
 
 
 # Loads image with given url
-def load_image(c_s): 
+def load_image(song): 
     global cached_album_cover_surface, cached_album_cover_link
 
     # Check if its not real
-    if c_s.album_cover_image == "" or c_s.title == "null":
+    if song.album_cover_image == "" or song.title == "null":
         utils.log_output("Failed to load album cover: No image to load.")
         return None
 
     # Try to load same as before 
-    if c_s.album_cover_image == cached_album_cover_link:
+    if song.album_cover_image == cached_album_cover_link:
         return cached_album_cover_surface
     
     # Try to load new image
     try:
-        response = requests.get(c_s.album_cover_image, timeout=2)
+        response = requests.get(song.album_cover_image, timeout=2)
         surface = pygame.image.load(io.BytesIO(response.content))
         surface = pygame.transform.smoothscale(surface, c.album_cover_size)
-        cached_album_cover_link = c_s.album_cover_image
+        cached_album_cover_link = song.album_cover_image
         cached_album_cover_surface = surface
         return surface
 
@@ -48,16 +48,16 @@ def load_image(c_s):
 # Load and cache the blurred background
 cached_blurred_background_surface = None
 
-def load_blurred_background(c_s, response):
+def load_blurred_background(song, response):
     global cached_blurred_background_surface, cached_album_cover_link
 
     # Check if its not real
-    if c_s.album_cover_image == "" or cached_album_cover_link == "null":
+    if song.album_cover_image == "" or cached_album_cover_link == "null":
         utils.log_output("Failed to load background: No image to load")
         return None
     
     # Load same as before if its cached 
-    if c_s.album_cover_image == cached_album_cover_link and cached_blurred_background_surface is not None:
+    if song.album_cover_image == cached_album_cover_link and cached_blurred_background_surface is not None:
         return cached_blurred_background_surface
     
     # Load new album cover image, and format/set it up
@@ -74,27 +74,27 @@ def load_blurred_background(c_s, response):
 
 
 # Render centered mode
-def render_centered(screen, c_s): # c_s is current_song
+def render_centered(screen, song):
 
     # Truncate all text
-    utils.truncate_text(c_s)
+    utils.truncate_text(song)
 
     # Format times
-    c_s.position = utils.format_time(c_s.position)
-    c_s.length = utils.format_time(c_s.length)
+    song.position = utils.format_time(song.position)
+    song.length = utils.format_time(song.length)
 
     # Get album cover image
     try:
-        response = requests.get(c_s.album_cover_image, timeout=2)
+        response = requests.get(song.album_cover_image, timeout=2)
     except requests.exceptions.RequestException as err:
         utils.log_output("Failed to get background image: " + str(err))
         return
 
     # Setup, darken, blur, and resize background
-    background = load_blurred_background(c_s, response)
+    background = load_blurred_background(song, response)
 
     # Load standard album cover
-    album_image_surface = load_image(c_s)
+    album_image_surface = load_image(song)
 
     # Background
     screen.blit(background, (0, 0))
@@ -109,35 +109,35 @@ def render_centered(screen, c_s): # c_s is current_song
         utils.log_output("Album cover failed to load/render")
 
     # Song name
-    title_surface = main_font.render(c_s.title, True, c.main_text_color)
+    title_surface = main_font.render(song.title, True, c.main_text_color)
     screen.blit(title_surface, (
-        c.display_size[0] / 2 - (main_font.size(c_s.title)[0] / 2), 
+        c.display_size[0] / 2 - (main_font.size(song.title)[0] / 2), 
         c.spacing_one
     ))
 
     # Artist name
-    artist_surface = secondary_font.render(c_s.artist, True, c.secondary_text_color)
+    artist_surface = secondary_font.render(song.artist, True, c.secondary_text_color)
     screen.blit(artist_surface, (
-        c.display_size[0] / 2 - (secondary_font.size(c_s.artist)[0] / 2), 
+        c.display_size[0] / 2 - (secondary_font.size(song.artist)[0] / 2), 
         c.spacing_two
     ))
 
     # Album name
-    album_surface = tertiary_font.render(c_s.album, True, c.tertiary_text_color)
+    album_surface = tertiary_font.render(song.album, True, c.tertiary_text_color)
     screen.blit(album_surface, (
-        c.display_size[0] / 2 - (tertiary_font.size(c_s.album)[0] / 2), 
+        c.display_size[0] / 2 - (tertiary_font.size(song.album)[0] / 2), 
         c.spacing_three
     ))
 
     # Position in song
-    position_surface = secondary_font.render(c_s.position + " / " + c_s.length, True, c.secondary_text_color)
+    position_surface = secondary_font.render(song.position + " / " + song.length, True, c.secondary_text_color)
     screen.blit(position_surface, (
-        c.display_size[0] / 2 - (secondary_font.size(c_s.position+" / "+c_s.length)[0] / 2), 
+        c.display_size[0] / 2 - (secondary_font.size(song.position+" / "+song.length)[0] / 2), 
         c.spacing_four
     ))
 
     # Render paused menu
-    if c_s.is_playing == "False":
+    if song.is_playing == "False":
         overlay_surface = pygame.Surface(c.display_size)
         overlay_surface.set_alpha(c.paused_darkening)
         overlay_surface.fill((0,0,0))
