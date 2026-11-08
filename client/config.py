@@ -77,7 +77,7 @@ output_transfer_info = False # Output the data recieved in each transfer
 ### No media screen       ###
 #############################
 
-no_media_background_image = False # Disables rendering of the image below and instead uses background_color
+no_media_background_image = True # Disables rendering of the image below and instead uses background_color
 no_media_background_image_link = "https://raylees-void.neocities.org/image_storage/The_Arcadian_or_Pastoral_State.jpg"
 
 no_media_clock = True # Show clock if no media is playing

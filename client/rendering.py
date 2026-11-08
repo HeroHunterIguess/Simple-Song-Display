@@ -162,7 +162,7 @@ def no_media(screen):
     global cached_no_media_background
 
     # Load background if there is one
-    if c.no_media_background_image_link != "":
+    if c.no_media_background_image_link != "" and c.no_media_background_image:
         if cached_no_media_background is None:
             try:
                 response = requests.get(c.no_media_background_image_link, timeout=2)
@@ -171,7 +171,7 @@ def no_media(screen):
 
                 cached_no_media_background = background_image
             except requests.exceptions.RequestException as err:
-                utils.log_output("Failed to get no-media background: " + str(err))
+                utils.log_output("Failed to get no media background: " + str(err))
                 screen.fill(c.background_color) 
                 return
 
