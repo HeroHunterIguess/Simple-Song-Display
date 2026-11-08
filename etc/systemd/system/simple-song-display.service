@@ -1,3 +1,5 @@
+# Simple Song Display service
+
 [Unit]
 Description=The client for Simple Song Display
 After=network-online.target
