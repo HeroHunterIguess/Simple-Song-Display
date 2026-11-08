@@ -88,7 +88,8 @@ no_media_message = "No media." # Disregarded if no_media_clock is true
 ### Misc                  ###
 #############################
 
-truncation_length = 10 # UNUSED # Length of a line of text before its shortened 
+title_truncation_length = 34 # Length of a song title of text before its cut off 
+info_truncation_length = 40 # Length of info before its cut off
 
 pause_icon = "https://raylees-void.neocities.org/image_storage/paused.png"
 paused_darkening = 140

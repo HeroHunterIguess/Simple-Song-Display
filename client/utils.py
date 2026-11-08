@@ -71,3 +71,13 @@ def log_output(message):
         with open(c.log_file, "a") as f:
             f.write(message+"\n")
             print(message)
+
+# Truncate song information
+def truncate_text(song):
+    if len(song.title) > c.title_truncation_length:
+        song.title = song.title[0:c.title_truncation_length] + ".."
+    
+    if len(song.artist) > c.info_truncation_length:
+        song.artist = song.artist[0:c.info_truncation_length] + ".."
+    if len(song.album) > c.info_truncation_length:
+        song.album = song.album[0:c.info_truncation_length] + ".."

@@ -76,6 +76,9 @@ def load_blurred_background(c_s, response):
 # Render centered mode
 def render_centered(screen, c_s): # c_s is current_song
 
+    # Truncate all text
+    utils.truncate_text(c_s)
+
     # Format times
     c_s.position = utils.format_time(c_s.position)
     c_s.length = utils.format_time(c_s.length)
