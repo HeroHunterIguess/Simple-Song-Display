@@ -19,11 +19,6 @@ background_color = (30,30,30)
 
 display_size = (480,320)
 
-# Paddings
-line_padding = 7
-padding_top = 6
-horizontal_padding = 4
-
 album_cover_height = 8
 album_cover_size = (182,182)
 
@@ -94,3 +89,4 @@ pause_icon = "https://raylees-void.neocities.org/image_storage/paused.png"
 paused_darkening = 140
 
 #log_file = "/home/herohunter/Everything/simple_song_display_log.txt"
+

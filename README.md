@@ -10,8 +10,7 @@ The information is transferred over a TCP socket - so the devices must be on the
 
 ## Code status
 
-This code may be suboptimal in several ways, and I am aware of this - however since this is primarily for my personal use, it's fine.
-I am also still not great at programming, but I'm always looking to improve!
+This code may be suboptimal in several ways, and I am aware of this, I am still not great at programming, but I'm always looking to improve!
 
 Minimal testing has been done on computers other than mine. Certain music players may also cause issues. 
 
@@ -21,7 +20,7 @@ If you find issues please create an issue, and if it is a crash include the outp
 
 ### Installers:
 
-There are two installer scripts: `client_install.sh` and `server_install.sh`. The server installer should be run on the computer on which you want it to check what you're listening to, it will send that information to the client to display it. These installers are made to use `pacman` to install dependencies. If you are on a distro that does not have pacman, you can still use the installers as long as you have `git` installed and you manually download the rest of the dependencies.
+There are two installer scripts: `client_install.sh` and `server_install.sh`. The server installer should be run on the computer on which you want it to check what you're listening to, it will send that information to the client to display it. These installers are made to use `pacman` to install dependencies. If you are on a distro that does not use pacman, you can still use the installers as long as you have `git` installed and you manually download the rest of the dependencies.
 
 The server requires: `python`, and `playerctl`
 
@@ -57,16 +56,16 @@ My usage of Simple Song Display on my desk ^^
 
 **This display is configured to either render directly on to the `/dev/fb1` framebuffer or to create a window based on `display_mode` in `config.py`.** I personally use the CUQI 3.5" Raspberry Pi screen from Amazon with the program directly drawing onto the framebuffer. My screen uses the LCD-Show driver, however I don't think this driver should affect the rendering of Simple Song Display when rendering directly onto the framebuffer.
 
-If no song is currently playing, a clock (or no media screen) is rendered instead of the music display. You can enable/disable the clock in `config.py`.
+If no song is currently playing, a clock (or no media screen) is rendered instead of the music display. This screen can have either a solid color background or you can designate a background image with a media link. You can enable/disable the clock in `config.py`.
 
 ### Logging
 
-The Simple Song Display client features a simple logging system (although it is disabled by default because you would need to set the default `log_file` path). All major client events or errors that occur will be printed to console, and logged to the `log_file` specified in `config.py`. Logging can be enabled in `config.py`. The server only has basic logging which is printed and not written to a file. 
+The Simple Song Display client features a simple logging system (although it is disabled by default because you need to set the default `log_file` path). All major client events or errors that occur will be printed to console, and logged to the `log_file` specified in `config.py`. Logging can be enabled in `config.py`. The server only has basic logging which is printed and not written to a file. 
 
 ### Config file
 The client end for Simple Song Display features a configuration file called `config.py`. This file is part of the program and cannot be stored in another directory. 
 
-`config.py` features variables to control fonts, font sizes, padding values, heights of different elements, colors, as well as other values. The default config was made to look as normal and good as I could make it, but you can probably make it better (or worse). The config file also has several values which are unused - from either features that I removed, or things that are yet to be implimented. If you remove any variables from the config file it will cause errors and the program will not run. 
+`config.py` features variables to control fonts, font sizes, padding values, heights of different elements, colors, as well as other values. The default config was made to look normal and as good as I could make it, but you can probably make it better (or worse). If you remove any variables from the config file it will cause errors and the program will not run. 
 
 ## Bugs/issues
 
