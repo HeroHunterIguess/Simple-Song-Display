@@ -1,6 +1,8 @@
 # Contributing
 Do *not* use AI for contributing to Simple Song Display. 
+
 Do *not* make *major* reworks to the code, unless it is necessary for another improvement/feature.
+
 Please include all relevant information and an explanation of the changes in the pull request.
 
 **Use the following categories for commits:**
