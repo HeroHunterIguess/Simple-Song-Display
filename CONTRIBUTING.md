@@ -8,7 +8,7 @@ Please include all relevant information and an explanation of the changes in the
 **Use the following categories for commits:**
 - `feat`: A new feature
 - `impr`: An improvement to an existing feature
-- `fix`: A bug fix
+- `fix`: A fix to a bug or something that was wrong
 - `docs`: Documentation/readme changes
 - `style`: Changes that do not affect the code, just comment/spacing updates
 - `chore`: Changes that dont apply to any other category above
