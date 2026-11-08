@@ -12,7 +12,7 @@ secondary_font = pygame.font.SysFont(c.secondary_font, c.secondary_font_size, bo
 tertiary_font = pygame.font.SysFont(c.secondary_font, c.tertiary_font_size, bold=c.secondary_font_bold, italic=c.tertiary_italic)
 
 no_media_font = pygame.font.SysFont(c.main_font, c.main_font_size * 2, bold=c.main_font_bold)
-clock_font = pygame.font.SysFont(c.main_font, c.main_font_size * c.clock_size_multiplier, bold=c.main_font_bold)
+clock_font = pygame.font.SysFont(c.main_font, c.clock_font_size, bold=c.main_font_bold)
 
 # Initialize album cover cache
 cached_album_cover_surface = None
@@ -201,7 +201,7 @@ def no_media(screen):
         # Render on screen
         screen.blit(clock_surface, (
             (c.display_size[0] / 2) - clock_font.size(current_time)[0] / 2, 
-            (c.display_size[1] / 2) - (c.main_font_size * (c.clock_size_multiplier - 1)) / 2) 
+            (c.display_size[1] / 2) - (c.clock_font_size / 2)) 
         )
     else:
         info_surface = no_media_font.render(c.no_media_message, True, c.main_text_color)

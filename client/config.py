@@ -50,6 +50,8 @@ main_font_size = 36
 secondary_font_size = 29
 tertiary_font_size = 24
 
+clock_font_size = 144
+
 tertiary_italic = True
 
 # Text spacing
@@ -58,9 +60,6 @@ spacing_one = 197
 spacing_two = 233
 spacing_three = 264
 spacing_four = 290
-
-# Font size of clock = main font size * multiplier
-clock_size_multiplier = 4 
 
 
 #############################
