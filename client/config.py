@@ -1,7 +1,6 @@
 ### Simple Song Display configuration ###
 # Default config
 # Do not remove any values
-# Some of these may be unused with the 'Centered' mode.
 
 
 #############################
@@ -14,13 +13,13 @@ display_mode = "Windowed"
 # Default is /dev/fb1
 frame_buffer = "1"
 
-# Config will likely look bad on a different mode
 mode = "Centered" # Only option is 'Centered'
 
 background_color = (30,30,30)
 
 display_size = (480,320)
 
+# Paddings
 line_padding = 7
 padding_top = 6
 horizontal_padding = 4
@@ -54,7 +53,7 @@ tertiary_font_size = 24
 tertiary_italic = True
 
 # Text spacing
-# This is the height of each line of text
+# This is the height of each line of text from the top
 spacing_one = 197
 spacing_two = 233
 spacing_three = 264
@@ -68,8 +67,21 @@ clock_size_multiplier = 4
 ### Debug                 ###
 #############################
 
+# Both require a log_file to be specified in misc section
+
 output = False # General output/logging messages
 output_transfer_info = False # Output the data recieved in each transfer
+
+
+#############################
+### No media screen       ###
+#############################
+
+no_media_background_image = False # Disables rendering of the image below and instead uses background_color
+no_media_background_image_link = "https://raylees-void.neocities.org/image_storage/The_Arcadian_or_Pastoral_State.jpg"
+
+no_media_clock = True # Show clock if no media is playing
+no_media_message = "No media." # Disregarded if no_media_clock is true
 
 
 #############################
@@ -77,11 +89,6 @@ output_transfer_info = False # Output the data recieved in each transfer
 #############################
 
 truncation_length = 10 # UNUSED # Length of a line of text before its shortened 
-
-no_media_background_image_link = "https://raylees-void.neocities.org/image_storage/The_Arcadian_or_Pastoral_State.jpg"
-
-no_media_clock = True # Show clock if no media is playing
-no_media_message = "No media." # Disregarded if no_media_clock is true
 
 pause_icon = "https://raylees-void.neocities.org/image_storage/paused.png"
 paused_darkening = 140
