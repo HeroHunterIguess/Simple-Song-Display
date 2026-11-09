@@ -51,6 +51,8 @@ Once connected to the server the client begins the main update loop where it ret
 
 `uninstall.sh` can be used to remove the program files, as well as the systemd services. This script can be run on both the server and client, and will uninstall either one. 
 
+### Display
+
 ![image](/images/physical_display.jpg)
 My usage of Simple Song Display on my desk ^^
 
