@@ -51,10 +51,12 @@ Once connected to the server the client begins the main update loop where it ret
 
 `uninstall.sh` can be used to remove the program files, as well as the systemd services. This script can be run on both the server and client, and will uninstall either one. 
 
+### Display
+
 ![image](/images/physical_display.jpg)
 My usage of Simple Song Display on my desk ^^
 
-**This display is configured to either render directly on to the `/dev/fb1` framebuffer or to create a window based on `display_mode` in `config.py`.** I personally use the CUQI 3.5" Raspberry Pi screen from Amazon with the program directly drawing onto the framebuffer. My screen uses the LCD-Show driver, however I don't think this driver should affect the rendering of Simple Song Display when rendering directly onto the framebuffer.
+**This display is configured to either render directly on to the `/dev/fb1` framebuffer or to create a window based on `display_mode` in `config.py`.** I personally use the CUQI 3.5" Raspberry Pi screen from Amazon with the program directly drawing onto the framebuffer. My screen uses the LCD-Show driver, however I don't think this driver should affect the rendering of Simple Song Display when rendering directly onto the framebuffer. When set to render directly on the frame buffer you may have to change file permissions. 
 
 If no song is currently playing, a clock (or no media screen) is rendered instead of the music display. This screen can have either a solid color background or you can designate a background image with a media link. You can enable/disable the clock in `config.py`.
 
