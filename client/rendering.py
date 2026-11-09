@@ -158,6 +158,7 @@ def render_centered(screen, song):
         except (requests.exceptions.RequestException, pygame.error) as err:
             utils.log_output("Failed to get or load pause icon: " + str(err))
 
+
 cached_no_media_background = None
 
 # No media screen if no media is playing
