@@ -243,7 +243,7 @@ def no_media(screen):
         # Render on screen
         screen.blit(clock_surface, (
             (c.display_size[0] / 2) - clock_font.size(current_time)[0] / 2, 
-            (c.display_size[1] / 2) - (c.clock_font_size / 2)) 
+            (c.display_size[1] / 2) - (c.clock_font_size / 3)) 
         )
     else:
         info_surface = no_media_font.render(c.no_media_message, True, c.main_text_color)
