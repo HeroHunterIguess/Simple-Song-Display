@@ -99,7 +99,11 @@ if [ $SERVICE == "y" ]; then
         -e "s|/home/hero/scripts/simple_song_display/main.py|$INSTALL_DIR/client/main.py|" \
         -e "s|User=hero|User=$USER|" \
         "$SERVICE_SOURCE"
-    mv $SERVICE_SOURCE /etc/systemd/system/simple-song-display.service
+    sudo mv $SERVICE_SOURCE /etc/systemd/system/simple-song-display.service
+    echo ""
+    echo "This service has not auto started, either restart your device or run the following:"
+    echo "sudo systemd start simple-song-display"
+    echo ""
 else
     echo "A systemd service will NOT be created."
     echo ""
