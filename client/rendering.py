@@ -79,7 +79,10 @@ def render_centered(screen, song):
     # Truncate all text
     utils.truncate_text(song)
 
-    # Format times
+    # Save in seconds then format times
+    song_position_seconds = float(song.position)
+    song_length_seconds = float(song.length)
+
     song.position = utils.format_time(song.position)
     song.length = utils.format_time(song.length)
 
@@ -130,11 +133,49 @@ def render_centered(screen, song):
     ))
 
     # Position in song
-    position_surface = secondary_font.render(song.position + " / " + song.length, True, c.secondary_text_color)
-    screen.blit(position_surface, (
-        c.display_size[0] / 2 - (secondary_font.size(song.position+" / "+song.length)[0] / 2), 
-        c.spacing_four
-    ))
+    if c.legacy_position:
+        # Just display current time / total length
+        
+        position_surface = secondary_font.render(song.position + " / " + song.length, True, c.secondary_text_color)
+        screen.blit(position_surface, (
+            c.display_size[0] / 2 - (secondary_font.size(song.position+" / "+song.length)[0] / 2), 
+            c.spacing_four
+        ))
+    else:
+        # Display current time, progress bar, and total length
+        screen_center = c.display_size[0] / 2
+        bar_width = c.progress_bar_width * c.display_size[0]
+
+        current_position_x = screen_center - (bar_width / 2) - c.progress_bar_text_padding - secondary_font.size(song.position)[0]
+        total_length_x = screen_center + (bar_width / 2) + c.progress_bar_text_padding
+
+        # Draw current position
+        position_text_surface = secondary_font.render(song.position, True, c.secondary_text_color)
+        screen.blit(position_text_surface, (
+            current_position_x, 
+            c.spacing_four
+        ))
+
+        # Draw total song length
+        total_length_surface = secondary_font.render(song.length, True, c.secondary_text_color)
+        screen.blit(total_length_surface, (
+            total_length_x, 
+            c.spacing_four
+        ))
+
+        # Calculate position width & placement in pixels
+        position_percentage = song_position_seconds / song_length_seconds
+        position_pixels = bar_width * position_percentage
+
+        left = screen_center - (bar_width / 2)
+        top = c.spacing_four + (secondary_font.size(song.position)[1] / 4)
+
+        # Draw progress background
+        pygame.draw.rect(screen, c.progress_background, (left, top, bar_width, c.progress_bar_thickness), 0, c.progress_bar_rounding)
+
+        # Draw progress bar
+        pygame.draw.rect(screen, c.progress_filled, (left, top, position_pixels, c.progress_bar_thickness), 0, c.progress_bar_rounding)
+    
 
     # Render paused menu
     if song.is_playing == "False":

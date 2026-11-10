@@ -27,6 +27,16 @@ background_image_size = (480,480)
 
 background_brightness = 0.4
 
+legacy_position = False # When enabled the progress bar is not shown, the time is just written
+
+progress_bar_width = 0.4 # Percentage of screen width, 0-1
+progress_bar_text_padding = 9
+progress_bar_thickness = 8
+progress_bar_rounding = 3
+
+progress_background = (90,90,90) # Progress bar background color
+progress_filled = (205,205,205) # Filled in song progress bar color
+
 
 #############################
 ### Text                  ###
