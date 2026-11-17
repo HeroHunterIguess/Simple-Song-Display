@@ -16,6 +16,8 @@ Minimal testing has been done on computers other than mine. Certain music player
 
 If you find issues please create an issue, and if it is a crash include the output of `journalctl -u simple-song-server.service -n 50` as well as `journalctl -u simple-song-display.service -n 50` if the issue involves the client. 
 
+There is a small chance I might rewrite parts of this (mainly the server) at some point in the future in a better language like C++. 
+
 ## Features
 
 ### Installers:
