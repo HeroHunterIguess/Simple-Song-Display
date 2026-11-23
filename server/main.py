@@ -38,12 +38,7 @@ def main():
                     status = ""
                 
                 # Assign variable based on if media is playing or paused
-                if status == "Paused":
-                    is_playing = False
-                elif status == "Playing":
-                    is_playing = True
-                else: 
-                    is_playing = False
+                is_playing = (status == "Playing")
 
                 # Format song information
                 info = utils.setup_current_info(is_playing)
