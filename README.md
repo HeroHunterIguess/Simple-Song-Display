@@ -1,5 +1,5 @@
 # Simple Song Display
-100% human code, no LLMs.
+100% human code, no LLM code.
 
 ![image](/images/showcase_image.png)
 
@@ -12,7 +12,7 @@ The information is transferred over a TCP socket - so the devices must be on the
 
 This code may be suboptimal in several ways, and I am aware of this, I am still not great at programming, but I'm always looking to improve!
 
-Minimal testing has been done on computers other than mine. Certain music players may also cause issues. 
+Minimal testing has been done on computers other than mine. Certain music players may also not work/cause issues. 
 
 If you find issues please create an issue, and if it is a crash include the output of `journalctl -u simple-song-server.service -n 50` as well as `journalctl -u simple-song-display.service -n 50` if the issue involves the client. 
 
@@ -55,7 +55,7 @@ Once connected to the server the client begins the main update loop where it ret
 
 ### Display
 
-![image](/images/physical_display.jpg)
+![image](/images/physical_display_updated.png)
 My usage of Simple Song Display on my desk ^^
 
 **This display is configured to either render directly on to the `/dev/fb1` framebuffer or to create a window based on `display_mode` in `config.py`.** I personally use the CUQI 3.5" Raspberry Pi screen from Amazon with the program directly drawing onto the framebuffer. My screen uses the LCD-Show driver, however I don't think this driver should affect the rendering of Simple Song Display when rendering directly onto the framebuffer. When set to render directly on the frame buffer you may have to change file permissions. 
@@ -77,6 +77,8 @@ The client end for Simple Song Display features a configuration file called `con
 - Not all data transfers happen at the exact same time, so the position/time indicator may update slightly inconsistently.
 - The server can only handle a single client at a time - in the future it should be adapted to handle multiple... especially for testing while still connected on the external display.
 - The program may have major issues or crash if an image in the config does not load (or is missing any variables).
+- Sometimes the display can temporarily go dark (unsure why/how this is happening, likely due to lost data).
+- Installers require pacman to install dependencies.
 
 **If you use this program, and find more bugs that are not listed, please create a GitHub issue and I will do by best to fix it (as long as it is a universal issue and not a result of your setup).**
 If you find a fix for something or have an improvement, please create a pull request. 
