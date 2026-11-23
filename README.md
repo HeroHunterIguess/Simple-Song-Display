@@ -77,6 +77,8 @@ The client end for Simple Song Display features a configuration file called `con
 - Not all data transfers happen at the exact same time, so the position/time indicator may update slightly inconsistently.
 - The server can only handle a single client at a time - in the future it should be adapted to handle multiple... especially for testing while still connected on the external display.
 - The program may have major issues or crash if an image in the config does not load (or is missing any variables).
+- Sometimes the display can temporarily go dark (unsure why/how this is happening, likely due to lost data).
+- Installers require pacman to install dependencies.
 
 **If you use this program, and find more bugs that are not listed, please create a GitHub issue and I will do by best to fix it (as long as it is a universal issue and not a result of your setup).**
 If you find a fix for something or have an improvement, please create a pull request. 
