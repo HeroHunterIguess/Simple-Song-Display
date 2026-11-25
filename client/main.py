@@ -118,7 +118,7 @@ def main():
             # Draw on screen
             screen.fill(c.background_color)
 
-            if current_song.title == "null" or current_song.album_cover_image == "" or current_song.title == "":
+            if current_song.title == "null_data" or current_song.album_cover_image == "" or current_song.title == "null_data":
                 rendering.no_media(screen)
             else:
                 rendering.render(screen, current_song)

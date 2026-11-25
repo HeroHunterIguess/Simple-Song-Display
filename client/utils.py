@@ -6,39 +6,31 @@ import io, song_data, subprocess, config as c
 # Parse song metadata into song object
 def parse_info(data):
     # Initialize song
-    current_song = song_data.song(
-        title = "",
-        artist = "",
-        album = "",
-        album_cover_image = "",
-        position = "",
-        length = "",
-        is_playing = False
-    )
+    song = song_data.song()
 
     # If it isnt real then make it empty
     if data == "":
         log_output("Data is null - using blank data")
-        current_song.title = ""
-        current_song.artist = ""
-        current_song.album_cover_image = ""
-        current_song.length = ""
-        current_song.is_playing = ""
-        current_song.album = ""
-        current_song.position = ""
+        song.title = "null_data"
+        song.artist = "null_data"
+        song.album_cover_image = "null_data"
+        song.length = "null_data"
+        song.is_playing = False
+        song.album = "null_data"
+        song.position = "null_data"
     else:
         # If song is real
         # Split data into individual values
         buffer = io.StringIO(data)
-        current_song.title = buffer.readline().strip()
-        current_song.artist = buffer.readline().strip()
-        current_song.album_cover_image = buffer.readline().strip()
-        current_song.length = buffer.readline().strip()
-        current_song.is_playing = buffer.readline().strip()
-        current_song.album = buffer.readline().strip()
-        current_song.position = buffer.readline().strip()
+        song.title = buffer.readline().strip()
+        song.artist = buffer.readline().strip()
+        song.album_cover_image = buffer.readline().strip()
+        song.length = buffer.readline().strip()
+        song.is_playing = buffer.readline().strip()
+        song.album = buffer.readline().strip()
+        song.position = buffer.readline().strip()
         
-    return current_song
+    return song
 
 # Format time in seconds into minutes:seconds
 def format_time(seconds):

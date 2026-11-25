@@ -24,7 +24,7 @@ def load_image(song):
     global cached_album_cover_surface, cached_album_cover_link
 
     # Check if its not real
-    if song.album_cover_image == "" or song.title == "null":
+    if song.album_cover_image == "" or song.title == "null_data":
         utils.log_output("Failed to load album cover: No image to load.")
         return None
 
