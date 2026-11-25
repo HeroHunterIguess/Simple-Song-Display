@@ -15,6 +15,8 @@ echo "This installer requires the pacman package manager for dependencies."
 echo "The rest of the installer will work without, but for the dependencies you must be on a distro with pacman"
 echo "If you need to find the dependency list, it is in README.md on the github repo"
 echo ""
+echo "This installs the most recent code on GitHub, not code from a release."
+echo ""
 echo "###########################################"
 echo ""
 
