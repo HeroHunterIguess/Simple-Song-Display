@@ -12,7 +12,7 @@ def get_current_playing():
         # Get position and song metadata
         position = subprocess.run(["playerctl", f"--player={reference.source_one},{reference.source_two}", "position"], capture_output=True, text=True, timeout=1).stdout.strip() 
         metadata = subprocess.run(["playerctl", f"--player={reference.source_one},{reference.source_two}", "metadata", "--format", "{{title}}\t{{artist}}\t{{mpris:artUrl}}\t{{mpris:length}}"], capture_output=True, text=True, timeout=1).stdout.strip()
-        album = "" # Seperately define album in case there isnt one specified:
+        album = "" # Seperately define album in case there isnt one specified
         album = subprocess.run(["playerctl", f"--player={reference.source_one},{reference.source_two}", "metadata", "--format", "{{album}}"], capture_output=True, text=True, timeout=1).stdout.strip() 
 
         if metadata == "":
@@ -36,7 +36,7 @@ def get_current_playing():
             return last_good_data
         return "", "", "", "", "", ""
 
-# Setup/format information to be sent
+# Setup/format information
 def setup_current_info(is_playing):
     title, artist, artURL, length, album, position = get_current_playing()
 
