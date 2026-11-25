@@ -2,7 +2,7 @@
 ### This gets currently playing song info and sends it to a client ###
 
 
-import subprocess, time, socket, utils, reference
+import subprocess, time, socket, song_info, reference
 
 def main():
     # Setup server vars
@@ -42,7 +42,7 @@ def main():
                 is_playing = (status == "Playing")
 
                 # Format song information
-                info = utils.setup_current_info(is_playing)
+                info = song_info.setup_current_info(is_playing)
 
                 # Try to send data
                 try: 
