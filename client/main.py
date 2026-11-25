@@ -29,23 +29,14 @@ else:
     screen = pygame.display.set_mode(c.display_size)
 
 # Set window title
-if not direct:
-    pygame.display.set_caption("Simple Song Display")
+pygame.display.set_caption("Simple Song Display")
 
 # Load icon
 ssd_icon = pygame.image.load("Simple_Song_Display_icon.png")
 pygame.display.set_icon(ssd_icon)
 
 # Initialize current song
-current_song = song_data.song(
-    title = "",
-    artist = "",
-    album = "",
-    album_cover_image = "",
-    position = "",
-    length = "",
-    is_playing = False
-)
+current_song = song_data.song()
 
 # Remove external stop condition file
 if os.path.exists(f"/home/{username}/stop_display"):

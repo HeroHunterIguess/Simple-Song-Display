@@ -6,10 +6,10 @@ from dataclasses import dataclass
 # Song object
 @dataclass
 class song:
-    title: str
-    artist: str
-    album: str
-    album_cover_image: str
-    position: str
-    length: str
-    is_playing: bool
+    title: str = ""
+    artist: str = ""
+    album: str = ""
+    album_cover_image: str = ""
+    position: str = ""
+    length: str = ""
+    is_playing: bool = False
