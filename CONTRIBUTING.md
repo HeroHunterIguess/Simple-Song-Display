@@ -9,7 +9,7 @@ Always use snake_case.
 
 **Use the following categories for commits:**
 - `feat`: A new feature
-- `impr`: An improvement to an existing feature
+- `impr`: An improvement to an existing feature or existing code.
 - `fix`: A fix to a bug or something that was wrong
 - `docs`: Documentation/readme changes
 - `style`: Changes that do not affect the code, just comment/spacing updates
