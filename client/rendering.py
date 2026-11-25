@@ -73,8 +73,8 @@ def load_blurred_background(song, response):
         return cached_blurred_background_surface
 
 
-# Render centered mode
-def render_centered(screen, song):
+# Render mode
+def render(screen, song):
 
     # Truncate all text
     utils.truncate_text(song)

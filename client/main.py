@@ -120,12 +120,8 @@ def main():
 
             if current_song.title == "null" or current_song.album_cover_image == "" or current_song.title == "":
                 rendering.no_media(screen)
-            elif c.mode == "Centered":
-                rendering.render_centered(screen, current_song)
             else:
-                utils.log_output("No valid mode selected.")
-                running = False
-                break
+                rendering.render(screen, current_song)
 
             time.sleep(0.4)
 
