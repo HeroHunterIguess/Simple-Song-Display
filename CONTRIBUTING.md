@@ -5,6 +5,8 @@ Do *not* make *major* reworks to the code, unless it is necessary for another im
 
 Please include all relevant information and an explanation of the changes in the pull request.
 
+Always use snake_case.
+
 **Use the following categories for commits:**
 - `feat`: A new feature
 - `impr`: An improvement to an existing feature
