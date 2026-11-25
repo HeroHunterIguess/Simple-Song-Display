@@ -21,7 +21,8 @@ def main():
 
     print("Server started on port: " + str(port))
 
-    # Info sending loop
+
+    # Info loop
     while True:
         try:
             # Accept client connecting
@@ -32,7 +33,7 @@ def main():
             while True:
                 
                 try:
-                    # Check is something is actively playing (Based on chosen player sources)
+                    # Check what is actively playing based on chosen player sources
                     status = subprocess.run(["playerctl", f"--player={reference.source_one},{reference.source_two}", "status"], capture_output=True, text=True, timeout=1).stdout.strip()
                 except subprocess.TimeoutExpired:
                     status = ""
@@ -48,14 +49,15 @@ def main():
                     client_socket.send(info.encode("utf-8"))
                 # End loop if client disconnects
                 except ConnectionResetError as err:
-                    print("CLIENT DISCONNECTED: " + str(err))
+                    print("Client disconnected: " + str(err))
                     break
                 except BrokenPipeError as err:
-                    print("BROKEN PIPE: CLIENT LIKELY DISCONNECTED:", err)
+                    print("BROKEN PIPE: client likely disconnected:", err)
                     break
                 
                 time.sleep(0.4)
         
+
         # Stop server
         except KeyboardInterrupt:
             print("\nStopping server...")
