@@ -69,12 +69,13 @@ def main():
 
             client_socket.connect((host, port))
 
-            utils.log_output("Connected to server: " + host + " at port " + str(port))
+            utils.log_output(f"Connected to server: {host} at port {port}")
             break
 
         # Retry connection if it fails
         except OSError as err:
-            utils.log_output("Server not found." + str(err))
+            utils.log_output(f"Server not found: {err}")
+            utils.log_output("Waiting 30 seconds before trying again.")
             time.sleep(30)
 
 
@@ -91,7 +92,7 @@ def main():
                 continue
             
             if c.output_transfer_info:
-                utils.log_output("Recieved data:\n" + str(data) + "\n")
+                utils.log_output(f"Recieved data:\n{data}\n")
 
             # Parse metadata about current song
             current_song = utils.parse_info(data)
