@@ -52,7 +52,7 @@ def main():
     # Attempt to stop blinking console cursor
     if direct:
         utils.log_output("Stopping cursor blink...")
-        utils.stop_cursor_blink(direct)
+        utils.stop_cursor_blink()
     
     # Reset log file
     if c.output:
