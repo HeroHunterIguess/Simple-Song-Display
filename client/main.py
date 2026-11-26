@@ -51,7 +51,7 @@ def main():
 
     # Attempt to stop blinking console cursor
     if direct:
-        utils.log_output("Stopping cursor blink... ")
+        utils.log_output("Stopping cursor blink...")
         utils.stop_cursor_blink(direct)
     
     # Reset log file
@@ -74,7 +74,7 @@ def main():
 
         # Retry connection if it fails
         except OSError as err:
-            utils.log_output("Server not found. " + str(err))
+            utils.log_output("Server not found." + str(err))
             time.sleep(30)
 
 
