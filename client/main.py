@@ -32,8 +32,8 @@ else:
 pygame.display.set_caption("Simple Song Display")
 
 # Load icon
-ssd_icon = pygame.image.load("Simple_Song_Display_icon.png")
-pygame.display.set_icon(ssd_icon)
+icon = pygame.image.load("Simple_Song_Display_icon.png")
+pygame.display.set_icon(icon)
 
 # Initialize current song
 current_song = song_data.song()
@@ -46,7 +46,6 @@ if os.path.exists(f"/home/{username}/stop_display"):
 def main():
     # Establish server connection
     host = socket.gethostbyname(reference.server_hostname)
-
     port = 7463
 
     # Attempt to stop blinking console cursor
