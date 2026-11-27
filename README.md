@@ -62,6 +62,8 @@ My usage of Simple Song Display on my desk ^^
 
 If no song is currently playing, a clock (or no media screen) is rendered instead of the music display. This screen can have either a solid color background or you can designate a background image with a media link. You can enable/disable the clock in `config.py`.
 
+If the server goes offline, then the client will display the clock/no media screen. It will only update once every 30 seconds so the clock will be more off than it usually is. When the server comes back it may take up to 30 seconds to reconnect as it only attempts to connect every 30 seconds. 
+
 ### Logging
 
 The Simple Song Display client features a simple logging system (although it is disabled by default because you need to set the default `log_file` path). All major client events or errors that occur will be printed to console, and logged to the `log_file` specified in `config.py`. Logging can be enabled in `config.py`. The server only has basic logging which is printed and not written to a file. 
@@ -73,11 +75,10 @@ The client end for Simple Song Display features a configuration file called `con
 
 ## Bugs/issues
 
-- If the server is disconnected while the client is running, the client will freeze and not recover.
 - Not all data transfers happen at the exact same time, so the position/time indicator may update slightly inconsistently.
 - The server can only handle a single client at a time - in the future it should be adapted to handle multiple... especially for testing while still connected on the external display.
 - The program may have major issues or crash if an image in the config does not load (or is missing any variables).
-- Sometimes the display can temporarily go dark (unsure why/how this is happening, likely due to lost data).
+- Sometimes the display can temporarily go dark (unsure why/how this is happening, likely due to lost data/a server not responding).
 - Installers require pacman to install dependencies.
 
 **If you use this program, and find more bugs that are not listed, please create a GitHub issue and I will do by best to fix it (as long as it is a universal issue and not a result of your setup).**

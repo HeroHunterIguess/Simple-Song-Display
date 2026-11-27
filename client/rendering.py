@@ -2,7 +2,7 @@
 
 
 # Imports and initalization
-import pygame, utils, requests, io, datetime, config as c 
+import pygame, utils, requests, io, datetime, time, config as c 
 from PIL import Image, ImageFilter, ImageEnhance
 pygame.font.init()
 
@@ -258,3 +258,11 @@ def no_media(screen):
 def convert_screen_format_and_draw(screen):
     with open("/dev/fb1", "wb") as fb:
         fb.write(screen.convert(16, 0).get_buffer())
+
+# Decide which drawing mode and show it
+def decide_mode(screen, direct):
+    if direct:
+        # Convert rendered surface to framebuffer and draw
+        convert_screen_format_and_draw(screen)
+    else:
+        pygame.display.flip()

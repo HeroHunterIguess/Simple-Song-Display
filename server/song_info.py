@@ -16,7 +16,11 @@ def get_current_playing():
         album = subprocess.run(["playerctl", f"--player={reference.source_one},{reference.source_two}", "metadata", "--format", "{{album}}"], capture_output=True, text=True, timeout=1).stdout.strip() 
 
         if metadata == "":
-            title, artist, artURL, length, album = "", "", "", "", ""
+            title = "null_data"
+            artist = "null_data"
+            artURL = "null_data"
+            length = "null_data"
+            album = "null_data"
         else:
             title, artist, artURL, length = metadata.split("\t")
 

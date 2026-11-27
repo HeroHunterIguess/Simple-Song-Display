@@ -9,11 +9,10 @@ import os, subprocess, utils, reference, config as c
 username = str(subprocess.run("whoami", shell=True, capture_output=True, text=True).stdout.strip())
 
 # Setup stuff based on display mode
+direct = False
 if c.display_mode == "DirectDraw":
-    utils.log_output("Running on raspberry pi.")
+    utils.log_output("Running on direct draw mode.")
     direct = True
-else:
-    direct = False
 
 # Setup and initialization
 import pygame, time, socket, requests, io, rendering, song_data, datetime
@@ -59,82 +58,91 @@ def main():
             f.write(str(datetime.datetime.now())+"\n\n")
             f.write("Initalizing/resetting log file.\n")
 
-    # Try to connect to host until it goes through
-    while True:
-        utils.log_output("Attemping to connect to " + host)
-        try: 
-            client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            client_socket.settimeout(2.0)
 
-            client_socket.connect((host, port))
+    # Loop that connects to server and runs client:
+    # If server disconnects it will realize that and return to attempting a connection
+    running = True
+    while running:
+        # Try to connect to host until it goes through
+        while True:
+            utils.log_output("Attemping to connect to " + host)
+            try: 
+                client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                client_socket.settimeout(2.0)
 
-            utils.log_output(f"Connected to server: {host} at port {port}")
-            break
+                client_socket.connect((host, port))
 
-        # Retry connection if it fails
-        except OSError as err:
-            utils.log_output(f"Server not found: {err}")
-            utils.log_output("Waiting 30 seconds before trying again.")
-            time.sleep(30)
-
-
-    try:
-        # Begin main loop
-        running = True
-        utils.log_output("Beginning update loop...")
-
-        while running:
-            try:
-                # Recieve data
-                data = client_socket.recv(1024).decode("utf-8")
-            except socket.timeout:
-                continue
-            
-            if c.output_transfer_info:
-                utils.log_output(f"Recieved data:\n{data}\n")
-
-            # Parse metadata about current song
-            current_song = utils.parse_info(data)
-
-            # External shutdown condition
-            if os.path.exists(f"/home/{username}/stop_display"):
-                utils.log_output("Shutting down.")
-                running = False
-
-            # Make window closeable w/ space on pc
-            for event in pygame.event.get():
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_SPACE:
-                        utils.log_output("Shutting down.")
-                        running = False
-                # Close with quit/x
-                if event.type == pygame.QUIT:
-                    running = False
-            
-            # Close instantly instead of finishing loop
-            if running == False:
+                utils.log_output(f"Connected to server: {host} at port {port}")
                 break
 
-            # Draw on screen
-            screen.fill(c.background_color)
+            # Retry connection if it fails
+            except OSError as err:
+                utils.log_output(f"Server not found: {err}")
+                utils.log_output("Waiting 30 seconds before trying again.")
 
-            if current_song.title == "null_data" or current_song.album_cover_image == "" or current_song.title == "null_data":
                 rendering.no_media(screen)
-            else:
-                rendering.render(screen, current_song)
+                rendering.decide_mode(screen, direct)
 
-            time.sleep(0.4)
+                # Wait before retrying
+                time.sleep(30)
 
-            # Convert rendered surface to framebuffer and draw
-            if direct:
-                rendering.convert_screen_format_and_draw(screen)
-            else:
-                pygame.display.flip()
+        try:
+            # Begin main loop
+            utils.log_output("Beginning update loop...")
 
-    # Close client
-    except KeyboardInterrupt:
-        utils.log_output("Client closing from keyboard interrupt.")
-    
+            while running:
+                try:
+                    # Recieve data
+                    data = client_socket.recv(1024).decode("utf-8")
+                except socket.timeout:
+                    continue
+                
+                if c.output_transfer_info:
+                    utils.log_output(f"Recieved data:\n{data}\n")
+
+                # Parse metadata about current song
+                current_song = utils.parse_info(data)
+
+                # External shutdown condition
+                if os.path.exists(f"/home/{username}/stop_display"):
+                    utils.log_output("Shutting down.")
+                    running = False
+
+                # Make window closeable w/ space on pc
+                for event in pygame.event.get():
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_SPACE:
+                            utils.log_output("Shutting down.")
+                            running = False
+                    # Close with quit/x
+                    if event.type == pygame.QUIT:
+                        running = False
+                
+                # Close instantly instead of finishing loop
+                if running == False:
+                    break
+
+                # Draw on screen
+                screen.fill(c.background_color)
+
+                if current_song.title == "null_data":
+                    rendering.no_media(screen)
+                elif current_song.title == "":
+                    utils.log_output("Server stopped sending packets: disconnecting.")
+                    break
+                else:
+                    rendering.render(screen, current_song)
+
+                time.sleep(0.4)
+
+                rendering.decide_mode(screen, direct)
+
+
+        # Close client
+        except KeyboardInterrupt:
+            utils.log_output("Client closing from keyboard interrupt.")
+            break
+        
     client_socket.close()
 
 

@@ -8,16 +8,10 @@ def parse_info(data):
     # Initialize song
     song = song_data.song()
 
-    # If it isnt real then make it empty
+    # If it isnt real then make title empty
     if data == "":
         log_output("Data is null - using blank data")
-        song.title = "null_data"
-        song.artist = "null_data"
-        song.album_cover_image = "null_data"
-        song.length = "null_data"
-        song.is_playing = False
-        song.album = "null_data"
-        song.position = "null_data"
+        song.title = ""
     else:
         # If song is real
         # Split data into individual values
