@@ -30,9 +30,12 @@ else:
 # Set window title
 pygame.display.set_caption("Simple Song Display")
 
-# Load icon
-icon = pygame.image.load("Simple_Song_Display_icon.png")
-pygame.display.set_icon(icon)
+# Try to load icon
+try:
+    icon = pygame.image.load("Simple_Song_Display_icon.png")
+    pygame.display.set_icon(icon)
+except pygame.error:
+    utils.log_output("Failed to load window icon.")
 
 # Initialize current song
 current_song = song_data.song()
