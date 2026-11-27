@@ -25,7 +25,7 @@ def get_current_playing():
             title, artist, artURL, length = metadata.split("\t")
 
         # Convert length to seconds
-        if length != "":
+        if length != "null_data":
             length = int(length) / 1000000
 
         # Save and return good data
