@@ -38,7 +38,7 @@ The server hosts a TCP socket on port 7463, where it transmits data to a singula
 
 The server end uses `playerctl` to periodically get information (metadata, position, and if the song is paused) about the currently played song. 
 This data then is formatted and sent over a TCP socket. This loop completes every 0.4 seconds to continually update the available information for the client.
-Each loop completes 3 `playerctl` calls: metadata, status, and position. These calls all check the designated player sources set in `reference.py` when installing the program.
+Each loop completes 4 `playerctl` calls: 2 metadata calls, status, and position. These calls all check the designated player sources set in `reference.py` when installing the program. There are two metadata calls, because album needs to be set separately since certain players do not specify it.  
 
 ### Client:
 
