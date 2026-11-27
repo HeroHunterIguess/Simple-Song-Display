@@ -49,6 +49,8 @@ If there is no server with the given IP available when the client starts, it wil
 
 Once connected to the server the client begins the main update loop where it retrieves the song data, and uses `pygame` to create a window and display song information. This display is customizable via the `config.py` file in the client code. This display can be stopped by creating a blank file named `stop_display` in the home directory (if the display is in DirectDraw mode). 
 
+If the server goes offline, then the client will display the clock/no media screen. It will only update once every 30 seconds so the clock will be more off than it usually is. When the server comes back it may take up to 30 seconds to reconnect as it only attempts to connect every 30 seconds. 
+
 ### Uninstaller
 
 `uninstall.sh` can be used to remove the program files, as well as the systemd services. This script can be run on both the server and client, and will uninstall either one. 
@@ -61,8 +63,6 @@ My usage of Simple Song Display on my desk ^^
 **This display is configured to either render directly on to the `/dev/fb1` framebuffer or to create a window based on `display_mode` in `config.py`.** I personally use the CUQI 3.5" Raspberry Pi screen from Amazon with the program directly drawing onto the framebuffer. My screen uses the LCD-Show driver, however I don't think this driver should affect the rendering of Simple Song Display when rendering directly onto the framebuffer. When set to render directly on the frame buffer you may have to change file permissions. 
 
 If no song is currently playing, a clock (or no media screen) is rendered instead of the music display. This screen can have either a solid color background or you can designate a background image with a media link. You can enable/disable the clock in `config.py`.
-
-If the server goes offline, then the client will display the clock/no media screen. It will only update once every 30 seconds so the clock will be more off than it usually is. When the server comes back it may take up to 30 seconds to reconnect as it only attempts to connect every 30 seconds. 
 
 ### Logging
 
