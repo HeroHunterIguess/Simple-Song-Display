@@ -34,7 +34,7 @@ progress_bar_text_padding = 9
 progress_bar_thickness = 8
 progress_bar_rounding = 3
 
-progress_background = (90,90,90) # Progress bar background color
+progress_background = (40,40,40) # Progress bar background color
 progress_filled = (205,205,205) # Filled in song progress bar color
 
 
